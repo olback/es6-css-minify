@@ -1,15 +1,41 @@
 {
     "name": "es6-css-minify",
-    "displayName": "ES6 and CSS minifier",
+    "displayName": "ES5/ES6 and CSS minifier",
     "description": "Easily minify CSS and JavaScript",
     "version": "0.0.1",
     "publisher": "olback",
-    "engines": {
-        "vscode": "^1.19.0"
+    "icon": "icon.png",
+    "galleryBanner": {
+		"color": "#333",
+		"theme": "dark"
     },
+    "license": "MIT",
+    "homepage": "https://github.com/olback/es6-css-minify",
+    "bugs": "https://github.com/olback/es6-css-minify/issues",
     "categories": [
         "Other"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/olback/es6-css-minify.git"
+    },
+    "author": {
+		"name": "olback",
+		"email": "es6-css-minify@olback.net"
+    },
+    "keywords": [
+        "IDE",
+        "vscode",
+        "button",
+        "simplicity",
+        "CSS",
+        "js",
+        "javascript",
+        "minify"
+    ],
+    "engines": {
+        "vscode": "^1.19.0"
+    },
     "activationEvents": [
         "onLanguage:css",
         "onLanguage:javascript",
@@ -20,7 +46,7 @@
         "commands": [
             {
                 "command": "es6-css-minify.minify",
-                "title": "Minify"
+                "title": "Minify (ES5/ES6/CSS)"
             }
         ]
     },
