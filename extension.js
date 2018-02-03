@@ -1,3 +1,7 @@
+/**
+ * ES5/ES6/CSS Minifier
+ * github.com/olback/es6-css-minify
+ */
 
 'use strict';
 
@@ -11,7 +15,10 @@ const statusBarItems = [];
 const quotedStyles = ['auto', 'single', 'double', 'original'];
 
 const minJSopts = {
-    "mangle": true,
+	"mangle": true,
+	"compress": {
+		"unused": false
+	},
 	"output": {
 		"quote_style": quotedStyles.indexOf('single')
 	}

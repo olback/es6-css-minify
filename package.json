@@ -2,12 +2,12 @@
     "name": "es6-css-minify",
     "displayName": "ES5/ES6 and CSS minifier",
     "description": "Easily minify CSS and JavaScript",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
-		"color": "#333",
-		"theme": "dark"
+        "color": "#333",
+        "theme": "dark"
     },
     "license": "MIT",
     "homepage": "https://github.com/olback/es6-css-minify",
@@ -20,8 +20,8 @@
         "url": "https://github.com/olback/es6-css-minify.git"
     },
     "author": {
-		"name": "olback",
-		"email": "es6-css-minify@olback.net"
+        "name": "olback",
+        "email": "es6-css-minify@olback.net"
     },
     "keywords": [
         "button",
@@ -60,6 +60,6 @@
     },
     "dependencies": {
         "clean-css": "^4.1.9",
-        "uglify-es": "^3.3.8"
+        "uglify-es": "^3.3.9"
     }
 }
