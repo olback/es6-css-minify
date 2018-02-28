@@ -25,7 +25,7 @@ const minJSopts = {
 }
 
 const minCSSopts = {
-
+    rebase: false
 }
 
 function addStatusBarItem(str, cmd, tip, col) { // (name, command, tooltip, color)

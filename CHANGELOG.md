@@ -1,3 +1,6 @@
+# 0.0.3
+* Fixed issue #3
+
 # 0.0.2
 * Fixed issue #1
 
