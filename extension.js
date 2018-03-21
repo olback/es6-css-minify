@@ -28,6 +28,11 @@ const minCSSopts = {
     rebase: false
 }
 
+// TODO: Load from vs code settings, FIXME: before release!
+const settings = {
+    minifyOnSave: false
+}
+
 function addStatusBarItem(str, cmd, tip, col) { // (name, command, tooltip, color)
     statusBarItems.push(vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left));
     statusBarItems[statusBarItems.length-1].text = str;
@@ -121,6 +126,15 @@ function activate(context) {
     });
 
     context.subscriptions.push(disposable);
+
+    vscode.workspace.onDidSaveTextDocument((e) => {
+        if((e.languageId === 'css' || e.languageId === 'js') && settings.minifyOnSave) {
+            setTimeout(() => {
+                doMinify(e);
+            }, 100);
+            console.log('triggerd');
+        }
+    });
 
 }
 
