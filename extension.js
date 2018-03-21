@@ -33,6 +33,8 @@ const settings = {
     minifyOnSave: false
 }
 
+let WSSettings;
+
 function addStatusBarItem(str, cmd, tip, col) { // (name, command, tooltip, color)
     statusBarItems.push(vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left));
     statusBarItems[statusBarItems.length-1].text = str;
@@ -111,6 +113,9 @@ function activate(context) {
     console.log('es6-css-minify is now active!');
     addStatusBarItem('|');
     addStatusBarItem('Minify', ex+'.minify', 'Minify file');
+
+    WSSettings = vscode.workspace.getConfiguration('es6-css-minify');
+    console.log(WSSettings);
 
     let disposable = vscode.commands.registerCommand(ex+'.minify', function () {
 

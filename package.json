@@ -45,7 +45,18 @@
                 "command": "es6-css-minify.minify",
                 "title": "Minify (ES5/ES6/CSS)"
             }
-        ]
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "es6-css-minify",
+            "properties": {
+                "es6-css-minify.minifyOnSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automaticly minify file when saving"
+                }
+            }
+        }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",
