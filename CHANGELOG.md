@@ -1,3 +1,6 @@
+# 0.0.5
+* Typo
+
 # 0.0.4
 * Fixed issue #5
 * Added support for minify on save.
