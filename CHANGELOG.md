@@ -1,3 +1,8 @@
+# 0.0.4
+* Fixed issue #5
+* Added support for minify on save.
+* Settings
+
 # 0.0.3
 * Fixed issue #3
 

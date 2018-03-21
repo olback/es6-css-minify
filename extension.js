@@ -12,36 +12,16 @@ const fs = require('fs');
 
 const ex = 'es6-css-minify';
 const statusBarItems = [];
-const quotedStyles = ['auto', 'single', 'double', 'original'];
 
-const minJSopts = {
-	"mangle": true,
-	"compress": {
-		"unused": false
-	},
-	"output": {
-		"quote_style": quotedStyles.indexOf('single')
-	}
-}
-
-const minCSSopts = {
-    rebase: false
-}
-
-// TODO: Load from vs code settings, FIXME: before release!
-const settings = {
-    minifyOnSave: false
-}
-
-let WSSettings;
+let settings;
 
 function addStatusBarItem(str, cmd, tip, col) { // (name, command, tooltip, color)
     statusBarItems.push(vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left));
-    statusBarItems[statusBarItems.length-1].text = str;
-    if(cmd) statusBarItems[statusBarItems.length-1].command = cmd;
-    if(tip) statusBarItems[statusBarItems.length-1].tooltip = tip;
-    if(col) statusBarItems[statusBarItems.length-1].color = col;
-    statusBarItems[statusBarItems.length-1].show();
+    statusBarItems[statusBarItems.length - 1].text = str;
+    if (cmd) statusBarItems[statusBarItems.length - 1].command = cmd;
+    if (tip) statusBarItems[statusBarItems.length - 1].tooltip = tip;
+    if (col) statusBarItems[statusBarItems.length - 1].color = col;
+    statusBarItems[statusBarItems.length - 1].show();
 }
 
 function sendFileOut(fileName, data, stats) {
@@ -56,7 +36,7 @@ function sendFileOut(fileName, data, stats) {
 function doMinify(doc) {
 
     let outName = doc.fileName.split('.');
-    if(outName[outName.length - 2] === 'min') return vscode.window.setStatusBarMessage("Cannot minify minified file.", 5000);
+    if (outName[outName.length - 2] === 'min') return vscode.window.setStatusBarMessage("Cannot minify minified file.", 5000);
     const ext = outName.pop();
     outName.push("min");
     outName.push(ext);
@@ -70,24 +50,24 @@ function doMinify(doc) {
     const isJS = ext.toLocaleLowerCase() === 'js';
     const isCSS = ext.toLocaleLowerCase() === 'css';
 
-    if(isJS) {
-        
+    if (isJS) {
+
         try {
 
-            let results = minJS.minify(data, minJSopts);
+            let results = minJS.minify(data, settings.js);
             sendFileOut(outName, results.code, {
                 length: data.length
             });
 
-        } catch(e) {
+        } catch (e) {
 
             vscode.window.setStatusBarMessage("Minify failed: " + e.message, 5000);
 
         }
 
-    } else if(isCSS) {
+    } else if (isCSS) {
 
-        let cleanCSS = new mincss(minCSSopts);
+        let cleanCSS = new mincss(settings.css);
 
         cleanCSS.minify(data, (error, results) => {
 
@@ -96,7 +76,7 @@ function doMinify(doc) {
                 warnings: results.warnings.length,
                 errors: results.errors.length
             })
-            else if(error) vscode.window.setStatusBarMessage("Minify failed: " + error.length + " error(s).", 5000);
+            else if (error) vscode.window.setStatusBarMessage("Minify failed: " + error.length + " error(s).", 5000);
 
         });
 
@@ -105,39 +85,38 @@ function doMinify(doc) {
         vscode.window.setStatusBarMessage("Can only minify JavaScript and CSS.", 5000);
 
     }
-    
+
 }
 
 function activate(context) {
-    
+
     console.log('es6-css-minify is now active!');
     addStatusBarItem('|');
-    addStatusBarItem('Minify', ex+'.minify', 'Minify file');
+    addStatusBarItem('Minify', ex + '.minify', 'Minify file');
 
-    WSSettings = vscode.workspace.getConfiguration('es6-css-minify');
-    console.log(WSSettings);
+    settings = vscode.workspace.getConfiguration('es6-css-minify');
 
-    let disposable = vscode.commands.registerCommand(ex+'.minify', function () {
-
+    context.subscriptions.push(vscode.commands.registerCommand(ex + '.minify', () => {
         const active = vscode.window.activeTextEditor;
         if (!active || !active.document) return;
 
         if (active.document.isUntitled) return vscode.window.setStatusBarMessage(
-			"File must be saved before minify can run",
+            "File must be saved before minify can run",
             5000);
-        
-		return doMinify(active.document);
 
-    });
+        return doMinify(active.document);
+    }));
 
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(vscode.commands.registerCommand(ex + '.reload', () => {
+        settings = vscode.workspace.getConfiguration('es6-css-minify');
+        vscode.window.showInformationMessage('ES5/ES6/CSS Minifier config reloaded');
+    }));
 
     vscode.workspace.onDidSaveTextDocument((e) => {
-        if((e.languageId === 'css' || e.languageId === 'js') && settings.minifyOnSave) {
+        if ((e.languageId === 'css' || e.languageId === 'js') && settings.minifyOnSave) {
             setTimeout(() => {
                 doMinify(e);
             }, 100);
-            console.log('triggerd');
         }
     });
 

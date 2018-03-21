@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "ES5/ES6 and CSS minifier",
     "description": "Easily minify CSS and JavaScript",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -43,17 +43,41 @@
         "commands": [
             {
                 "command": "es6-css-minify.minify",
-                "title": "Minify (ES5/ES6/CSS)"
+                "title": "Minify"
+            },
+            {
+                "command": "es6-css-minify.reload",
+                "title": "Minify: Reload config"
             }
         ],
         "configuration": {
             "type": "object",
-            "title": "es6-css-minify",
+            "title": "ES5/ES6/CSS Minifier",
             "properties": {
                 "es6-css-minify.minifyOnSave": {
                     "type": "boolean",
-                    "default": true,
-                    "description": "Automaticly minify file when saving"
+                    "description": "Automatically minify file when saving.",
+                    "default": true
+                },
+                "es6-css-minify.js": {
+                    "type": "object",
+                    "description": "Uglify-es settings. For more info visit https://www.npmjs.com/package/uglify-es#parse-options.",
+                    "default": {
+                        "mangle": true,
+                        "compress": {
+                            "unused": false
+                        },
+                        "output": {
+                            "quote_style": 0
+                        }
+                    }
+                },
+                "es6-css-minify.css": {
+                    "type": "object",
+                    "description": "Clean-CSS settings. For more info visit https://www.npmjs.com/package/clean-css.",
+                    "default": {
+                        "rebase": false
+                    }
                 }
             }
         }
@@ -67,10 +91,12 @@
         "vscode": "^1.1.6",
         "eslint": "^4.6.1",
         "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "@types/mocha": "^2.2.42",
+        "clean-css": "^4.1.11",
+        "uglify-es": "^3.3.9"
     },
     "dependencies": {
-        "clean-css": "^4.1.9",
+        "clean-css": "^4.1.11",
         "uglify-es": "^3.3.9"
     }
 }
