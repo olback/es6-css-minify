@@ -75,8 +75,6 @@ function doMinify(doc) {
 
     } else if (isCSS) {
 
-        //let cleanCSS = new mincss(settings.css);
-
         let cleanCSS;
 
         if(typeof fileConf.css === 'object') {
