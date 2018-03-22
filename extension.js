@@ -31,7 +31,7 @@ function sendFileOut(fileName, data, stats) {
             "% of original" + (stats.errors ? " but with errors." : (stats.warnings ? " but with warnings." : "."));
         vscode.window.setStatusBarMessage(status, 5000);
     });
-};
+}
 
 function doMinify(doc) {
 
@@ -126,6 +126,7 @@ exports.activate = activate;
 
 // this method is called when your extension is deactivated
 function deactivate() {
+    
 }
 
 exports.deactivate = deactivate;
