@@ -1,5 +1,8 @@
+# 0.0.8
+* Attempt two on fixing the issue!
+
 # 0.0.7
-* ?
+* Failed attempt to fix the plugin
 
 # 0.0.6
 * Minify JS on save bug fixed
