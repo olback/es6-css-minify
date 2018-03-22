@@ -1,3 +1,6 @@
+# 0.0.9
+* Added support for uglify-es and clean-css config files!
+
 # 0.0.8
 * Attempt two on fixing the issue!
 

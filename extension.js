@@ -14,6 +14,7 @@ const ex = 'es6-css-minify';
 const statusBarItems = [];
 
 let settings;
+let fileConf = {}
 
 function addStatusBarItem(str, cmd, tip, col) { // (name, command, tooltip, color)
     statusBarItems.push(vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left));
@@ -54,7 +55,14 @@ function doMinify(doc) {
 
         try {
 
-            let results = minJS.minify(data, settings.js);
+            let results;
+
+            if(typeof fileConf.js === 'object') {
+                results = minJS.minify(data, fileConf.js);
+            } else {
+                results = minJS.minify(data, settings.js);
+            }
+
             sendFileOut(outName, results.code, {
                 length: data.length
             });
@@ -67,7 +75,15 @@ function doMinify(doc) {
 
     } else if (isCSS) {
 
-        let cleanCSS = new mincss(settings.css);
+        //let cleanCSS = new mincss(settings.css);
+
+        let cleanCSS;
+
+        if(typeof fileConf.css === 'object') {
+            cleanCSS = new mincss(fileConf.css);
+        } else {
+            cleanCSS = new mincss(settings.css);
+        }
 
         cleanCSS.minify(data, (error, results) => {
 
@@ -88,13 +104,33 @@ function doMinify(doc) {
 
 }
 
+function loadConfig(notify) {
+
+    fileConf = {} // Reset fileConf on reload
+
+    settings = vscode.workspace.getConfiguration('es6-css-minify');
+
+    const rootPath = vscode.workspace.workspaceFolders[0].uri.path + '/';
+
+    if (fs.existsSync(rootPath + settings.uglifyConfigFile)) {
+        fileConf.js = JSON.parse(fs.readFileSync(rootPath + settings.uglifyConfigFile, 'utf8'));
+    }
+
+    if (fs.existsSync(rootPath + settings.cleancssConfigFile)) {
+        fileConf.css = JSON.parse(fs.readFileSync(rootPath + settings.cleancssConfigFile, 'utf8'));
+    }
+
+    if (notify) vscode.window.showInformationMessage('ES5/ES6/CSS Minifier config reloaded');
+
+}
+
 function activate(context) {
 
     console.log('es6-css-minify is now active!');
     addStatusBarItem('|');
     addStatusBarItem('Minify', ex + '.minify', 'Minify file');
 
-    settings = vscode.workspace.getConfiguration('es6-css-minify');
+    loadConfig(false);
 
     context.subscriptions.push(vscode.commands.registerCommand(ex + '.minify', () => {
         const active = vscode.window.activeTextEditor;
@@ -108,8 +144,7 @@ function activate(context) {
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand(ex + '.reload', () => {
-        settings = vscode.workspace.getConfiguration('es6-css-minify');
-        vscode.window.showInformationMessage('ES5/ES6/CSS Minifier config reloaded');
+        loadConfig(true);
     }));
 
     vscode.workspace.onDidSaveTextDocument((e) => {
@@ -126,7 +161,7 @@ exports.activate = activate;
 
 // this method is called when your extension is deactivated
 function deactivate() {
-    
+
 }
 
 exports.deactivate = deactivate;

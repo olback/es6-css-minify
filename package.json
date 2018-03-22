@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "ES5/ES6 and CSS minifier",
     "description": "Easily minify CSS and JavaScript",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -58,6 +58,16 @@
                     "type": "boolean",
                     "description": "Automatically minify file when saving.",
                     "default": true
+                },
+                "es6-css-minify.uglifyConfigFile": {
+                    "type": "string",
+                    "description": "If this file exists, overwrite uglify-es settings with the ones specified in this file. For more info visit https://www.npmjs.com/package/uglify-es#minify-options-structure.",
+                    "default": ".uglifyrc"
+                },
+                "es6-css-minify.cleancssConfigFile": {
+                    "type": "string",
+                    "description": "If this file exists, overwrite clean-css settings with the ones specified in this file. For more info visit https://www.npmjs.com/package/clean-css.",
+                    "default": ".cleancssrc"
                 },
                 "es6-css-minify.js": {
                     "type": "object",
