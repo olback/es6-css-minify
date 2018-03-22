@@ -1,3 +1,6 @@
+# 0.0.6
+* Minify JS on save bug fixed
+
 # 0.0.5
 * Typo
 
