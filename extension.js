@@ -113,7 +113,7 @@ function activate(context) {
     }));
 
     vscode.workspace.onDidSaveTextDocument((e) => {
-        if ((e.languageId === 'css' || e.languageId === 'js') && settings.minifyOnSave) {
+        if ((e.languageId === 'css' || e.languageId === 'javascript') && settings.minifyOnSave) {
             setTimeout(() => {
                 doMinify(e);
             }, 100);
@@ -126,7 +126,6 @@ exports.activate = activate;
 
 // this method is called when your extension is deactivated
 function deactivate() {
-
 }
 
 exports.deactivate = deactivate;
