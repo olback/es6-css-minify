@@ -1,3 +1,6 @@
+# 0.0.10
+* README changes
+
 # 0.0.9
 * Added support for uglify-es and clean-css config files!
 
