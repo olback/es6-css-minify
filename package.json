@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "ES5/ES6 and CSS minifier",
     "description": "Easily minify CSS and JavaScript",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -97,17 +97,17 @@
         "test": "node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "eslint": "^4.6.1",
-        "@types/node": "^7.0.43",
         "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
         "clean-css": "^4.1.11",
-        "uglify-es": "^3.3.9"
+        "eslint": "^4.6.1",
+        "typescript": "^2.6.1",
+        "uglify-es": "^3.3.10",
+        "vscode": "^1.1.6"
     },
     "dependencies": {
         "clean-css": "^4.1.11",
-        "uglify-es": "^3.3.9",
+        "uglify-es": "^3.3.10",
         "vscode": "^1.1.6"
     }
 }

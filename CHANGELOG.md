@@ -1,3 +1,6 @@
+# 0.0.11
+* Fixed bug #10
+
 # 0.0.10
 * README changes
 
