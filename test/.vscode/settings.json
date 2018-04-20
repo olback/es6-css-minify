@@ -1,0 +1,13 @@
+{
+    "es6-css-minify.genJSmap": true,
+    "es6-css-minify.genCSSmap": true,
+    "es6-css-minify.js": {
+        "mangle": false,
+        "compress": {
+            "unused": false
+        },
+        "output": {
+            "quote_style": 0
+        }
+    }
+}

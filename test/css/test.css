@@ -1,0 +1,32 @@
+/*!
+ *  CSS test file
+ */
+
+::selection {
+    background-color: orange;
+}
+
+html {
+    background-color: #f0f;
+}
+
+#id {
+    color: #c0c;
+}
+
+.class {
+    padding: 3em;
+}
+
+.class:hover {
+    color: #ffcc00;
+}
+
+button[type="submit"] {
+    padding: 1em;
+    background-color: mediumspringgreen;
+}
+
+header {
+    background-image: url('../../imgages/bg/header1.png');
+}

@@ -1,3 +1,6 @@
+# 0.1.0
+* Source map support. Enable/Disable in settings.
+
 # 0.0.11
 * Fixed bug #10
 

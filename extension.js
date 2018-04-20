@@ -58,17 +58,35 @@ function doMinify(doc) {
             let results;
 
             if (typeof fileConf.js === 'object') {
+
                 results = minJS.minify(data, fileConf.js);
+
             } else {
+
                 // results = minJS.minify(data, settings.js); // Stopped working with the March 1.22.1 release of vscode.
                 // settings.js is frozen, make a copy of it so that uglify can mess arround with the object passed.
-                let jss = JSON.parse(JSON.stringify(settings.js)); // Hack of the hacks...
+                let jss = JSON.parse(JSON.stringify(settings.js));
+
+                if (settings.genJSmap) {
+                    jss.sourceMap = {
+                        filename: outName,
+                        url: outName + '.map'
+                    }
+                }
+
                 results = minJS.minify(data, jss);
+
             }
 
             sendFileOut(outName, results.code, {
                 length: data.length
             });
+
+            if (settings.genJSmap) {
+                sendFileOut(outName + '.map', results.map, {
+                    length: data.length
+                });
+            }
 
         } catch (e) {
 
@@ -81,19 +99,44 @@ function doMinify(doc) {
         let cleanCSS;
 
         if (typeof fileConf.css === 'object') {
+
             cleanCSS = new mincss(fileConf.css);
+
         } else {
-            cleanCSS = new mincss(settings.css);
+
+            let ccsss = JSON.parse(JSON.stringify(settings.css));
+
+            if (settings.genCSSmap) {
+                ccsss.sourceMap = true
+            }
+
+            cleanCSS = new mincss(ccsss);
+
         }
 
         cleanCSS.minify(data, (error, results) => {
 
-            if (results && results.styles) sendFileOut(outName, results.styles, {
-                length: data.length,
-                warnings: results.warnings.length,
-                errors: results.errors.length
-            })
-            else if (error) vscode.window.setStatusBarMessage("Minify failed: " + error.length + " error(s).", 5000);
+            if (results && results.styles) {
+
+                sendFileOut(outName, results.styles, {
+                    length: data.length,
+                    warnings: results.warnings.length,
+                    errors: results.errors.length
+                });
+
+                if(settings.genCSSmap) {
+                    sendFileOut(outName + '.map', JSON.stringify(results.sourceMap), {
+                        length: data.length,
+                        warnings: results.warnings.length,
+                        errors: results.errors.length
+                    });
+                }
+
+            } else if (error) {
+
+                vscode.window.setStatusBarMessage("Minify failed: " + error.length + " error(s).", 5000);
+
+            }
 
         });
 
