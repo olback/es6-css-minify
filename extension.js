@@ -43,6 +43,9 @@ function doMinify(doc) {
     outName.push(ext);
     outName = outName.join('.');
     let data = doc.getText();
+    let baseName = outName.split('/').pop();
+    let fileData = {}
+    fileData[baseName] = data;
     //if the document is empty here, we output an empty file to the min point
     if (!data.length) return sendFileOut(outName, "", {
         length: 1
@@ -59,7 +62,7 @@ function doMinify(doc) {
 
             if (typeof fileConf.js === 'object') {
 
-                results = minJS.minify(data, fileConf.js);
+                results = minJS.minify(fileData, fileConf.js);
 
             } else {
 
@@ -67,16 +70,16 @@ function doMinify(doc) {
                 // settings.js is frozen, make a copy of it so that uglify can mess arround with the object passed.
                 let jss = JSON.parse(JSON.stringify(settings.js));
 
-                let baseName = outName.split('/').pop();
-
                 if (settings.genJSmap) {
+
                     jss.sourceMap = {
                         filename: outName,
-                        url: settings.jsMapUrl + baseName
+                        url: settings.jsMapUrl + baseName + '.map'
                     }
+
                 }
 
-                results = minJS.minify(data, jss);
+                results = minJS.minify(fileData, jss);
 
             }
 
@@ -85,9 +88,7 @@ function doMinify(doc) {
             });
 
             if (settings.genJSmap) {
-                sendFileOut(outName + '.map', results.map, {
-                    length: data.length
-                });
+                sendFileOut(outName + '.map', results.map);
             }
 
         } catch (e) {
@@ -127,11 +128,9 @@ function doMinify(doc) {
                 });
 
                 if (settings.genCSSmap) {
-                    sendFileOut(outName + '.map', JSON.stringify(results.sourceMap), {
-                        length: data.length,
-                        warnings: results.warnings.length,
-                        errors: results.errors.length
-                    });
+                    let sm = JSON.parse(JSON.stringify(results.sourceMap));
+                    sm.sources[0] = baseName;
+                    sendFileOut(outName + '.map', JSON.stringify(sm));
                 }
 
             } else if (error) {
