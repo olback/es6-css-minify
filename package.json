@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "ES5/ES6 and CSS minifier",
     "description": "Easily minify CSS and JavaScript",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -55,9 +55,14 @@
             "title": "ES5/ES6/CSS Minifier",
             "properties": {
                 "es6-css-minify.minifyOnSave": {
-                    "type": "boolean",
-                    "description": "Automatically minify file when saving.",
-                    "default": true
+                    "type": "string",
+                    "description": "Automatically minify file when saving. Set to \"yes\" to always minify, \"no\" to never minify, \"exists\" to only minify if a minified version already exists.",
+                    "default": "yes",
+                    "enum": [
+                        "yes",
+                        "no",
+                        "exists"
+                    ]
                 },
                 "es6-css-minify.uglifyConfigFile": {
                     "type": "string",
@@ -68,6 +73,11 @@
                     "type": "boolean",
                     "description": "Generate JavaScript sourcemap files.",
                     "default": false
+                },
+                "es6-css-minify.jsMapUrl": {
+                    "type": "string",
+                    "description": "String to append before the basename.",
+                    "default": ""
                 },
                 "es6-css-minify.js": {
                     "type": "object",

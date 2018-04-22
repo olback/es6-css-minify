@@ -67,10 +67,12 @@ function doMinify(doc) {
                 // settings.js is frozen, make a copy of it so that uglify can mess arround with the object passed.
                 let jss = JSON.parse(JSON.stringify(settings.js));
 
+                let baseName = outName.split('/').pop();
+
                 if (settings.genJSmap) {
                     jss.sourceMap = {
                         filename: outName,
-                        url: outName + '.map'
+                        url: settings.jsMapUrl + baseName
                     }
                 }
 
@@ -124,7 +126,7 @@ function doMinify(doc) {
                     errors: results.errors.length
                 });
 
-                if(settings.genCSSmap) {
+                if (settings.genCSSmap) {
                     sendFileOut(outName + '.map', JSON.stringify(results.sourceMap), {
                         length: data.length,
                         warnings: results.warnings.length,
@@ -192,11 +194,27 @@ function activate(context) {
     }));
 
     vscode.workspace.onDidSaveTextDocument((e) => {
-        if ((e.languageId === 'css' || e.languageId === 'javascript') && settings.minifyOnSave) {
+
+        if ((e.languageId === 'css' || e.languageId === 'javascript') && settings.minifyOnSave !== 'no' && settings.minifyOnSave !== false) {
+
+            if (settings.minifyOnSave === 'exists') {
+                let outName = e.fileName.split('.');
+                const ext = outName.pop();
+                outName.push('min');
+                outName.push(ext);
+                outName = outName.join('.');
+
+                if (!fs.existsSync(outName)) {
+                    return;
+                }
+            }
+
             setTimeout(() => {
                 doMinify(e);
             }, 100);
+
         }
+
     });
 
 }

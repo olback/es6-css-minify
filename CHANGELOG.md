@@ -1,3 +1,7 @@
+# 0.1.1
+* Added "exists" as an option to `es6-css-minify.minifyOnSave`.
+* Change the JavaScript Mapping URL. `es6-css-minify.jsMapUrl`
+
 # 0.1.0
 * Source map support. Enable/Disable in settings.
 

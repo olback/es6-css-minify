@@ -1,4 +1,5 @@
 {
+    "es6-css-minify.minifyOnSave": true,
     "es6-css-minify.genJSmap": true,
     "es6-css-minify.genCSSmap": true,
     "es6-css-minify.js": {
@@ -9,7 +10,5 @@
         "output": {
             "quote_style": 0
         }
-    },
-    "es6-css-minify.minifyOnSave": "yes",
-    "es6-css-minify.jsMapUrl": "https://example.com/src/"
+    }
 }
