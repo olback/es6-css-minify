@@ -9,6 +9,7 @@ const vscode = require('vscode');
 const minJS = require('uglify-es');
 const mincss = require('clean-css');
 const fs = require('fs');
+const os = require('os');
 
 const ex = 'es6-css-minify';
 const statusBarItems = [];
@@ -43,7 +44,14 @@ function doMinify(doc) {
     outName.push(ext);
     outName = outName.join('.');
     let data = doc.getText();
-    let baseName = outName.split('/').pop();
+    let baseName;
+
+    if(os.type() === 'Windows_NT') {
+        baseName = outName.split('\\').pop();
+    } else {
+        baseName = outName.split('/').pop();
+    }
+
     let fileData = {}
     fileData[baseName] = data;
     //if the document is empty here, we output an empty file to the min point

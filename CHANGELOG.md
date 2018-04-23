@@ -1,3 +1,6 @@
+# 0.1.3
+* Fixed issue #18 (Windows)
+
 # 0.1.2
 * Fixed js sourcemap url #16
 * Sourcemap sources fixed #15
