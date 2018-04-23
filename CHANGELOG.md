@@ -1,9 +1,13 @@
+# 0.1.2
+* Fixed js sourcemap url #16
+* Sourcemap sources fixed #15
+
 # 0.1.1
 * Added "exists" as an option to `es6-css-minify.minifyOnSave`.
 * Change the JavaScript Mapping URL. `es6-css-minify.jsMapUrl`
 
 # 0.1.0
-* Source map support. Enable/Disable in settings.
+* Source map support. Enable/Disable in settings
 
 # 0.0.11
 * Fixed bug #10
@@ -28,7 +32,7 @@
 
 # 0.0.4
 * Fixed issue #5
-* Added support for minify on save.
+* Added support for minify on save
 * Settings
 
 # 0.0.3
