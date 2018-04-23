@@ -1,3 +1,6 @@
+# 0.1.4
+* Reference original file in sourcemap instead of minified file.
+
 # 0.1.3
 * Fixed issue #18 (Windows)
 

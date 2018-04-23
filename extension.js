@@ -53,7 +53,8 @@ function doMinify(doc) {
     }
 
     let fileData = {}
-    fileData[baseName] = data;
+    fileData[baseName.replace('.min.', '.')] = data;
+    
     //if the document is empty here, we output an empty file to the min point
     if (!data.length) return sendFileOut(outName, "", {
         length: 1
@@ -137,7 +138,7 @@ function doMinify(doc) {
 
                 if (settings.genCSSmap) {
                     let sm = JSON.parse(JSON.stringify(results.sourceMap));
-                    sm.sources[0] = baseName;
+                    sm.sources[0] = baseName.replace('.min.', '.');
                     sendFileOut(outName + '.map', JSON.stringify(sm));
                 }
 
