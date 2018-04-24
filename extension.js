@@ -129,18 +129,29 @@ function doMinify(doc) {
         cleanCSS.minify(data, (error, results) => {
 
             if (results && results.styles) {
+                /*# sourceMappingURL=styles.css.map */
+
+                if (settings.genCSSmap) {
+
+                    sendFileOut(outName, results.styles+'\n/*# sourceMappingURL='+settings.cssMapUrl+baseName+'.map */', {
+                        length: data.length,
+                        warnings: results.warnings.length,
+                        errors: results.errors.length
+                    });
+
+                    let sm = JSON.parse(JSON.stringify(results.sourceMap));
+                    sm.sources[0] = baseName.replace('.min.', '.');
+                    sendFileOut(outName + '.map', JSON.stringify(sm));
+
+                    return;
+
+                }
 
                 sendFileOut(outName, results.styles, {
                     length: data.length,
                     warnings: results.warnings.length,
                     errors: results.errors.length
                 });
-
-                if (settings.genCSSmap) {
-                    let sm = JSON.parse(JSON.stringify(results.sourceMap));
-                    sm.sources[0] = baseName.replace('.min.', '.');
-                    sendFileOut(outName + '.map', JSON.stringify(sm));
-                }
 
             } else if (error) {
 

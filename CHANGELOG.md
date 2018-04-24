@@ -1,3 +1,6 @@
+# 0.1.5
+* Fixed issue #19
+
 # 0.1.4
 * Reference original file in sourcemap instead of minified file.
 
