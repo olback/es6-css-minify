@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "ES5/ES6 and CSS minifier",
     "description": "Easily minify CSS and JavaScript",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -57,7 +57,7 @@
                 "es6-css-minify.minifyOnSave": {
                     "type": "string",
                     "description": "Automatically minify file when saving. Set to \"yes\" to always minify, \"no\" to never minify, \"exists\" to only minify if a minified version already exists.",
-                    "default": "yes",
+                    "default": "exists",
                     "enum": [
                         "yes",
                         "no",
@@ -78,6 +78,11 @@
                     "type": "string",
                     "description": "String to append before the basename.",
                     "default": ""
+                },
+                "es6-css-minify.jsMinPath": {
+                    "type": "string",
+                    "description": "Path to prepend to minified file.\nVariables:\n{currentPath} - Save the file in the same directory as the original file.",
+                    "default": "{currentPath}"
                 },
                 "es6-css-minify.js": {
                     "type": "object",
@@ -106,6 +111,11 @@
                     "type": "string",
                     "description": "String to append before the basename.",
                     "default": ""
+                },
+                "es6-css-minify.cssMinPath": {
+                    "type": "string",
+                    "description": "Path to prepend to minified file.\nVariables:\n{currentPath} - Save the file in the same directory as the original file.",
+                    "default": "{currentPath}"
                 },
                 "es6-css-minify.css": {
                     "type": "object",

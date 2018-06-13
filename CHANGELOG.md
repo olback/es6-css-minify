@@ -1,3 +1,7 @@
+# 0.1.6
+* Added feature from issue #23
+* Changed default value of `es6-css-minify.minifyOnSave` to `exists`.
+
 # 0.1.5
 * Fixed issue #19
 

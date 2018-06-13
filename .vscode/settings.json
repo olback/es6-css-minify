@@ -1,4 +1,4 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "es6-css-minify.minifyOnSave": false
+    "es6-css-minify.minifyOnSave": "no",
 }

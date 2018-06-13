@@ -10,6 +10,9 @@
             "quote_style": 0
         }
     },
-    "es6-css-minify.minifyOnSave": "yes",
-    "es6-css-minify.jsMapUrl": "https://example.com/src/"
+    "es6-css-minify.minifyOnSave": "exists",
+    "es6-css-minify.jsMapUrl": "https://example.com/dist/js/",
+    "es6-css-minify.cssMapUrl": "https://example.com/dist/css/",
+    "es6-css-minify.jsMinPath": "dist/js",
+    "es6-css-minify.cssMinPath": "{currentPath}"
 }

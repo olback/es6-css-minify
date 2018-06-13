@@ -8,6 +8,7 @@
 const vscode = require('vscode');
 const minJS = require('uglify-es');
 const mincss = require('clean-css');
+const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
@@ -46,7 +47,9 @@ function doMinify(doc) {
     let data = doc.getText();
     let baseName;
 
-    if(os.type() === 'Windows_NT') {
+    const rootPath = vscode.workspace.workspaceFolders[0];
+
+    if (os.type() === 'Windows_NT') {
         baseName = outName.split('\\').pop();
     } else {
         baseName = outName.split('/').pop();
@@ -54,7 +57,7 @@ function doMinify(doc) {
 
     let fileData = {}
     fileData[baseName.replace('.min.', '.')] = data;
-    
+
     //if the document is empty here, we output an empty file to the min point
     if (!data.length) return sendFileOut(outName, "", {
         length: 1
@@ -64,6 +67,11 @@ function doMinify(doc) {
     const isCSS = ext.toLocaleLowerCase() === 'css';
 
     if (isJS) {
+
+        if (settings.jsMinPath !== '{currentPath}') {
+            outName = path.join(rootPath.uri.fsPath, settings.jsMinPath, baseName);
+            console.log('js:', outName);
+        }
 
         try {
 
@@ -108,6 +116,11 @@ function doMinify(doc) {
 
     } else if (isCSS) {
 
+        if (settings.cssMinPath !== '{currentPath}') {
+            outName = path.join(rootPath.uri.fsPath, settings.cssMinPath, baseName);
+            console.log('css:', outName);
+        }
+
         let cleanCSS;
 
         if (typeof fileConf.css === 'object') {
@@ -133,7 +146,7 @@ function doMinify(doc) {
 
                 if (settings.genCSSmap) {
 
-                    sendFileOut(outName, results.styles+'\n/*# sourceMappingURL='+settings.cssMapUrl+baseName+'.map */', {
+                    sendFileOut(outName, results.styles + '\n/*# sourceMappingURL=' + settings.cssMapUrl + baseName + '.map */', {
                         length: data.length,
                         warnings: results.warnings.length,
                         errors: results.errors.length
@@ -222,6 +235,26 @@ function activate(context) {
                 outName.push('min');
                 outName.push(ext);
                 outName = outName.join('.');
+
+                let baseName;
+
+                const rootPath = vscode.workspace.workspaceFolders[0];
+            
+                if (os.type() === 'Windows_NT') {
+                    baseName = outName.split('\\').pop();
+                } else {
+                    baseName = outName.split('/').pop();
+                }
+
+                if (e.languageId === 'css' && settings.cssMinPath !== '{currentPath}') {
+                    outName = path.join(rootPath.uri.fsPath, settings.cssMinPath, baseName);
+                    console.log('css:', outName);
+                }
+
+                if (e.languageId === 'javascript' && settings.jsMinPath !== '{currentPath}') {
+                    outName = path.join(rootPath.uri.fsPath, settings.jsMinPath, baseName);
+                    console.log('css:', outName);
+                }
 
                 if (!fs.existsSync(outName)) {
                     return;
