@@ -11,16 +11,101 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:es6-css-minify.loadConfig",
+        "onCommand:es6-css-minify.minify",
+        "onLanguage:css",
+        "onLanguage:javascript",
+        "workspaceContains:**/*.css",
+        "workspaceContains:**/*.js"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "es6-css-minify.loadConfig",
+                "title": "Minify: Reload config"
+            },
+            {
+                "command": "es6-css-minify.minify",
+                "title": "Minify document"
             }
-        ]
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "ES5/ES6/CSS Minifier",
+            "properties": {
+                "es6-css-minify.minifyOnSave": {
+                    "type": "string",
+                    "description": "Automatically minify file when saving. Set to \"yes\" to always minify, \"no\" to never minify, \"exists\" to only minify if a minified version already exists.",
+                    "default": "exists",
+                    "enum": [
+                        "yes",
+                        "no",
+                        "exists"
+                    ]
+                },
+                "es6-css-minify.uglifyConfigFile": {
+                    "type": "string",
+                    "description": "If this file exists, overwrite uglify-es settings with the ones specified in this file. For more info visit https://www.npmjs.com/package/uglify-es#minify-options-structure.",
+                    "default": ".uglifyrc"
+                },
+                "es6-css-minify.genJSmap": {
+                    "type": "boolean",
+                    "description": "Generate JavaScript sourcemap files.",
+                    "default": false
+                },
+                "es6-css-minify.jsMapSource": {
+                    "type": "string",
+                    "description": "Prefix for sources in map files.",
+                    "default": ""
+                },
+                "es6-css-minify.jsMinPath": {
+                    "type": "string",
+                    "description": "Where to save the minified file.\nDefault: '' - saves in the same directory.\n'/' - Save in workspace root.",
+                    "default": ""
+                },
+                "es6-css-minify.js": {
+                    "type": "object",
+                    "description": "Uglify-es settings. For more info visit https://www.npmjs.com/package/uglify-es#parse-options.",
+                    "default": {
+                        "mangle": false,
+                        "compress": {
+                            "unused": false
+                        },
+                        "output": {
+                            "quote_style": 0
+                        }
+                    }
+                },
+                "es6-css-minify.cleancssConfigFile": {
+                    "type": "string",
+                    "description": "If this file exists, overwrite clean-css settings with the ones specified in this file. For more info visit https://www.npmjs.com/package/clean-css.",
+                    "default": ".cleancssrc"
+                },
+                "es6-css-minify.genCSSmap": {
+                    "type": "boolean",
+                    "description": "Generate CSS sourcemap files.",
+                    "default": false
+                },
+                "es6-css-minify.cssMapSource": {
+                    "type": "string",
+                    "description": "Prefix for sources in map files.",
+                    "default": ""
+                },
+                "es6-css-minify.cssMinPath": {
+                    "type": "string",
+                    "description": "Where to save the minified file.\nDefault: '' - saves in the same directory.\n'/' - Save in workspace root.",
+                    "default": ""
+                },
+                "es6-css-minify.css": {
+                    "type": "object",
+                    "description": "Clean-CSS settings. For more info visit https://www.npmjs.com/package/clean-css.",
+                    "default": {
+                        "rebase": false
+                    }
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
@@ -30,10 +115,16 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
+        "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "@types/clean-css": "^3.4.30",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.18"
+    },
+    "dependencies": {
+        "clean-css": "^4.1.11",
+        "uglify-es": "^3.3.9",
+        "vscode": "^1.1.18"
     }
 }

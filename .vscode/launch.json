@@ -6,7 +6,7 @@
 	"version": "0.2.0",
     "configurations": [
         {
-            "name": "Extension",
+            "name": "es6-css-minify",
             "type": "extensionHost",
             "request": "launch",
             "runtimeExecutable": "${execPath}",
