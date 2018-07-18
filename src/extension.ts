@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as uglify from 'uglify-es';
 import * as cleancss from 'clean-css';
 
-interface FileData {
+interface FileStats {
     original: number;
     minified: number;
 }
@@ -75,7 +75,55 @@ function loadConfig(showMessage = true): void {
 
 }
 
-function sendToFile(path: string, content: string, stats?: FileData): void {
+function getMinOutPath(doc: vscode.TextDocument): string {
+
+    const file = {
+        basename: path.basename(doc.uri.fsPath),
+        extname: path.extname(doc.uri.fsPath),
+        dirname: path.dirname(doc.uri.fsPath),
+        absolute: doc.uri.fsPath,
+        languageId: doc.languageId
+    };
+
+    let outNameParts = file.basename.split('.');
+
+    outNameParts.pop();
+    outNameParts.push('.min');
+    outNameParts.push(file.extname);
+    const baseOut = outNameParts.join('');
+
+    let outPath: string;
+
+    if (file.languageId === 'javascript') {
+
+        console.log('is js');
+
+        if (settings.jsMinPath && vscode.workspace.workspaceFolders) {
+            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.jsMinPath, baseOut);
+        } else {
+            outPath = path.join(file.dirname, baseOut);
+        }
+
+    } else if (file.languageId === 'css') {
+
+        console.log('is css');
+
+        if (settings.cssMinPath && vscode.workspace.workspaceFolders) {
+            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.cssMinPath, baseOut);
+        } else {
+            outPath = path.join(file.dirname, baseOut);
+        }
+
+    } else {
+        
+        outPath = '';
+
+    }
+
+    return outPath;
+}
+
+function sendToFile(path: string, content: string, stats?: FileStats): void {
 
     // console.log('path: ' + path);
     // console.log('content: ' + content);
@@ -91,8 +139,6 @@ function sendToFile(path: string, content: string, stats?: FileData): void {
 }
 
 function minify(): void {
-
-    console.log('wsf: ' + vscode.workspace.workspaceFolders);
 
     const active = vscode.window.activeTextEditor;
 
@@ -114,24 +160,14 @@ function minify(): void {
         return;
     }
 
+    const outPath = getMinOutPath(doc);
+
     const file = {
         basename: path.basename(doc.uri.fsPath),
         extname: path.extname(doc.uri.fsPath),
         dirname: path.dirname(doc.uri.fsPath),
-        absolute: doc.uri.fsPath,
-        content: doc.getText()
+        content: doc.getText(),
     };
-
-    let outNameParts = file.basename.split('.');
-
-    if (outNameParts[outNameParts.length - 2] === 'min') {
-        return;
-    }
-
-    outNameParts.pop();
-    outNameParts.push('.min');
-    outNameParts.push(file.extname);
-    const baseOut = outNameParts.join('');
 
     let stats = {
         original: file.content.length,
@@ -139,14 +175,6 @@ function minify(): void {
     };
 
     if (doc.languageId === 'javascript') {
-
-        let outPath: string;
-
-        if (settings.jsMinPath && vscode.workspace.workspaceFolders) {
-            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.jsMinPath, baseOut);
-        } else {
-            outPath = path.join(file.dirname, baseOut);
-        }
 
         try {
 
@@ -157,7 +185,7 @@ function minify(): void {
 
                 settings.js.sourceMap = {
                     filename: settings.jsMapSource ? path.join(settings.jsMapSource, file.basename) : file.basename,
-                    url: baseOut + '.map'
+                    url: path.basename(outPath) + '.map'
                 };
 
             }
@@ -189,12 +217,6 @@ function minify(): void {
     } else if (doc.languageId === 'css') {
 
         let outPath: string;
-
-        if (settings.cssMinPath && vscode.workspace.workspaceFolders) {
-            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.cssMinPath, baseOut);
-        } else {
-            outPath = path.join(file.dirname, baseOut);
-        }
 
         if (settings.genCSSmap) {
             settings.css.sourceMap = true;
@@ -252,13 +274,34 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     // Add 'Minify' status bar button
-    const minifyButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+    const minifyButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
     minifyButton.text = 'Minify';
     minifyButton.command = `${ex}.minify`;
     minifyButton.tooltip = 'Minify current file';
     minifyButton.show();
 
+    vscode.workspace.onDidSaveTextDocument(doc => {
+
+        if ((doc.languageId === 'css' || doc.languageId === 'javascript') && settings.minifyOnSave !== 'no' && settings.minifyOnSave !== false) {
+
+            const outPath = getMinOutPath(doc);
+
+            if (settings.minifyOnSave === 'exists' && fs.existsSync(outPath)) {
+
+                minify();
+
+            } else if (settings.minifyOnSave === 'yes' || settings.minifyOnSave === true) {
+
+                minify();
+
+            }
+
+        }
+
+    });
+
     console.log('es6-css-minify 2 is now active!');
+
 }
 
 // this method is called when your extension is deactivated

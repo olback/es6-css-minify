@@ -1,15 +1,38 @@
 {
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
-    "description": "Minify ES5/ES6/ES7/ES8 and CSS",
+    "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS",
     "version": "2.0.0",
     "publisher": "olback",
-    "engines": {
-        "vscode": "^1.25.0"
+    "icon": "icon.png",
+    "galleryBanner": {
+        "color": "#333",
+        "theme": "dark"
     },
+    "license": "MIT",
+    "homepage": "https://github.com/olback/es6-css-minify",
+    "bugs": "https://github.com/olback/es6-css-minify/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/olback/es6-css-minify.git"
+    },
+    "author": {
+        "name": "olback",
+        "email": "es6-css-minify@olback.net"
+    },
+    "keywords": [
+        "ECMA Script",
+        "CSS",
+        "js",
+        "javascript",
+        "minify"
+    ],
     "categories": [
         "Other"
     ],
+    "engines": {
+        "vscode": "^1.25.0"
+    },
     "activationEvents": [
         "onCommand:es6-css-minify.loadConfig",
         "onCommand:es6-css-minify.minify",
@@ -37,7 +60,7 @@
                 "es6-css-minify.minifyOnSave": {
                     "type": "string",
                     "description": "Automatically minify file when saving. Set to \"yes\" to always minify, \"no\" to never minify, \"exists\" to only minify if a minified version already exists.",
-                    "default": "exists",
+                    "default": "no",
                     "enum": [
                         "yes",
                         "no",
