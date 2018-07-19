@@ -2,13 +2,12 @@
 
 # Please read the changelog!
 
-[![Downloads](https://img.shields.io/vscode-marketplace/d/olback.es6-css-minify.svg?label=Downloads)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
-[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/olback.es6-css-minify.svg?label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
-[![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/2.0.svg?logo=github&label=Github)](https://github.com/olback/es6-css-minify)
-
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/olback.es6-css-minify.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/olback.es6-css-minify.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
+[![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/2.0.svg?style=for-the-badge&logo=github&label=Github)](https://github.com/olback/es6-css-minify/tree/2.0)
 
 A simple Javascript & CSS minifier.  
-A `Minify` button should appear in the status bar when opening a `.js` or a `.css` file. You can also run `Minify` by clicking `F1`.
+A `Minify` button should appear in the status bar when opening a `.js` or a `.css` file. You can also run `Minify document` by clicking `F1`.
 
 ### Loading custom configs
 By default the extension will look for `.uglifyrc` and `.cleancssrc`.  
