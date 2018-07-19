@@ -96,8 +96,6 @@ function getMinOutPath(doc: vscode.TextDocument): string {
 
     if (file.languageId === 'javascript') {
 
-        console.log('is js');
-
         if (settings.jsMinPath && vscode.workspace.workspaceFolders) {
             outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.jsMinPath, baseOut);
         } else {
@@ -105,8 +103,6 @@ function getMinOutPath(doc: vscode.TextDocument): string {
         }
 
     } else if (file.languageId === 'css') {
-
-        console.log('is css');
 
         if (settings.cssMinPath && vscode.workspace.workspaceFolders) {
             outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.cssMinPath, baseOut);
@@ -160,13 +156,14 @@ function minify(): void {
         return;
     }
 
-    const outPath = getMinOutPath(doc);
+    // const outPath = getMinOutPath(doc);
 
     const file = {
         basename: path.basename(doc.uri.fsPath),
         extname: path.extname(doc.uri.fsPath),
         dirname: path.dirname(doc.uri.fsPath),
         content: doc.getText(),
+        outpath: getMinOutPath(doc)
     };
 
     let stats = {
@@ -185,7 +182,7 @@ function minify(): void {
 
                 settings.js.sourceMap = {
                     filename: settings.jsMapSource ? path.join(settings.jsMapSource, file.basename) : file.basename,
-                    url: path.basename(outPath) + '.map'
+                    url: path.basename(file.outpath) + '.map'
                 };
 
             }
@@ -199,12 +196,12 @@ function minify(): void {
 
             stats.minified = r.code.length;
 
-            sendToFile(outPath, r.code, stats);
+            sendToFile(file.outpath, r.code, stats);
 
             if (r.map) {
                 let map = JSON.parse(r.map);
                 map.sources[0] = settings.jsMapSource ? path.join(settings.jsMapSource, file.basename) : file.basename;
-                sendToFile(outPath + '.map', JSON.stringify(map));
+                sendToFile(file.outpath + '.map', JSON.stringify(map));
             }
 
         } catch(e) {
@@ -215,8 +212,6 @@ function minify(): void {
 
 
     } else if (doc.languageId === 'css') {
-
-        let outPath: string;
 
         if (settings.genCSSmap) {
             settings.css.sourceMap = true;
@@ -232,8 +227,8 @@ function minify(): void {
 
                 if (settings.genCSSmap) {
 
-                    const mapPath = outPath + '.map';
-                    sendToFile(outPath, `${res.styles}\n/*# sourceMappingURL=${path.basename(mapPath)} */\n`, stats);
+                    const mapPath = file.outpath + '.map';
+                    sendToFile(file.outpath, `${res.styles}\n/*# sourceMappingURL=${path.basename(mapPath)} */\n`, stats);
 
                     // Modify sources before writing to file
                     let sm = JSON.parse(JSON.stringify(res.sourceMap));
@@ -248,7 +243,7 @@ function minify(): void {
 
                 } else {
 
-                    sendToFile(outPath, res.styles, stats);
+                    sendToFile(file.outpath, res.styles, stats);
 
                 }
 

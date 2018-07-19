@@ -1,6 +1,10 @@
+# 2.0.1
+* Fixed bug #28
+
 # 2.0.0
 * Rewritten in Typescript
 * Fixed bugs #24, #26, #27
+* Changed default value of `es6-css-minify.minifyOnSave` to `no`.
 
 # 0.1.6
 * Added feature from issue #23
