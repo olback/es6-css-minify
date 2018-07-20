@@ -219,7 +219,7 @@ function minify(): void {
 
         const cssMinify = new cleancss(settings.css);
 
-        cssMinify.minify(file.content, (err, res) => {
+        cssMinify.minify(file.content, (_, res) => {
 
             if (res && res.styles) {
 
