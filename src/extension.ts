@@ -5,73 +5,122 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as uglify from 'uglify-es';
 import * as cleancss from 'clean-css';
+import { pkg } from './package.json';
 
-interface FileStats {
+type ConfSettings = {
+    showMessage: boolean;
+    loadExternal: boolean;
+    setGlobal: boolean;
+}
+
+type FileStats = {
     original: number;
     minified: number;
 }
 
-// Store settings in a global variable
-let settings: any;
+namespace Config {
+
+    export type minifyOnSave = 'yes' | 'no' | 'exists' | boolean;
+    export type path = string;
+    export type bool = boolean;
+    export type _ = any;
+
+}
+
+type Config = {
+
+    // General extension settings
+    minifyOnSave: Config.minifyOnSave;
+
+    // JS
+    uglifyConfigFile: Config.path;
+    genJSmap: Config.bool;
+    jsMapSource: Config.path;
+    jsMinPath: Config.path;
+    js: Config._;
+
+    // CSS
+    cleancssConfigFile: Config.path;
+    genCSSmap: Config.bool;
+    cssMapSource: Config.path;
+    cssMinPath: Config.path;
+    css: Config._;
+
+}
+
+// Store config in a global variable
+let config: Config;
 
 // Extension name
-const ex = 'es6-css-minify';
+// const ex = 'es6-css-minify';
+const ex = pkg.name;
 
-// Load settings
-function loadConfig(showMessage = true): void {
+// Load config
+// export function loadConfig(showMessage = true, loadExternal = true, setGlobal = true): Config {
+function loadConfig(settings: ConfSettings = { showMessage: true, loadExternal: true, setGlobal: true }): Config {
 
-    // Load settings and make sure it's not read-only
-    settings = JSON.parse(JSON.stringify(vscode.workspace.getConfiguration('es6-css-minify')));
+    // Load config and make sure it's not read-only
+    let _config: Config = JSON.parse(JSON.stringify(vscode.workspace.getConfiguration(ex)));
 
     // If there is no workspace, don't continue
     if (!vscode.workspace.workspaceFolders) {
-        return;
+        return _config;
     }
 
     // console.log('vsc path: ' + vscode.workspace.workspaceFolders[0].uri.path);
-    // console.log('s path: ' + settings.uglifyConfigFile);
+    // console.log('s path: ' + config.uglifyConfigFile);
 
-    // Load uglify config if it exists
-    const uglifyrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.uglifyConfigFile);
-    if (fs.existsSync(uglifyrcPath)) {
+    if (settings.loadExternal) {
 
-        try {
+        // Load uglify config if it exists
+        const uglifyrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, _config.uglifyConfigFile);
+        if (fs.existsSync(uglifyrcPath)) {
 
-            settings.js = JSON.parse(fs.readFileSync(uglifyrcPath, 'utf8'));
-            // console.log(`${uglifyrcPath} loaded.`);
+            try {
 
-        } catch (e) {
+                _config.js = JSON.parse(fs.readFileSync(uglifyrcPath, 'utf8'));
+                // console.log(`${uglifyrcPath} loaded.`);
 
-            console.error(`Failed to parse ${uglifyrcPath}. ${e}.`);
-            vscode.window.showErrorMessage(`Failed to parse ${uglifyrcPath}. ${e}.`);
-            return;
+            } catch (e) {
+
+                console.error(`Failed to parse ${uglifyrcPath}. ${e}.`);
+                vscode.window.showErrorMessage(`Failed to parse ${uglifyrcPath}. ${e}.`);
+                // return _config;
+
+            }
+
+        }
+
+        // Load cleancss config if it exists
+        const cleancssrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, _config.cleancssConfigFile);
+        if (fs.existsSync(cleancssrcPath)) {
+
+            try {
+
+                _config.css = JSON.parse(fs.readFileSync(cleancssrcPath, 'utf8'));
+                // console.log(`${cleancssrcPath} loaded.`);
+
+            } catch (e) {
+
+                console.error(`Failed to parse ${cleancssrcPath}. ${e}.`);
+                vscode.window.showErrorMessage(`Failed to parse ${cleancssrcPath}. ${e}.`);
+                // return _config;
+
+            }
 
         }
 
     }
 
-    // Load cleancss config if it exists
-    const cleancssrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.cleancssConfigFile);
-    if (fs.existsSync(cleancssrcPath)) {
-
-        try {
-
-            settings.css = JSON.parse(fs.readFileSync(cleancssrcPath, 'utf8'));
-            // console.log(`${cleancssrcPath} loaded.`);
-
-        } catch (e) {
-
-            console.error(`Failed to parse ${cleancssrcPath}. ${e}.`);
-            vscode.window.showErrorMessage(`Failed to parse ${cleancssrcPath}. ${e}.`);
-            return;
-
-        }
-
+    if (settings.setGlobal) {
+        config = _config;
     }
 
-    if (showMessage) {
+    if (settings.showMessage) {
         vscode.window.showInformationMessage('Minify configuration config reloaded.');
     }
+
+    return _config;
 
 }
 
@@ -96,22 +145,22 @@ function getMinOutPath(doc: vscode.TextDocument): string {
 
     if (file.languageId === 'javascript') {
 
-        if (settings.jsMinPath && vscode.workspace.workspaceFolders) {
-            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.jsMinPath, baseOut);
+        if (config.jsMinPath && vscode.workspace.workspaceFolders) {
+            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, config.jsMinPath, baseOut);
         } else {
             outPath = path.join(file.dirname, baseOut);
         }
 
     } else if (file.languageId === 'css') {
 
-        if (settings.cssMinPath && vscode.workspace.workspaceFolders) {
-            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, settings.cssMinPath, baseOut);
+        if (config.cssMinPath && vscode.workspace.workspaceFolders) {
+            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, config.cssMinPath, baseOut);
         } else {
             outPath = path.join(file.dirname, baseOut);
         }
 
     } else {
-        
+
         outPath = '';
 
     }
@@ -145,7 +194,7 @@ function minify(): void {
 
     // Document never written to disc
     if (active.document.isUntitled) {
-        vscode.window.setStatusBarMessage("File must be saved befor minify can run", 5000);
+        vscode.window.setStatusBarMessage('File must be saved before minify can run', 5000);
         return;
     }
 
@@ -156,8 +205,6 @@ function minify(): void {
         return;
     }
 
-    // const outPath = getMinOutPath(doc);
-
     const file = {
         basename: path.basename(doc.uri.fsPath),
         extname: path.extname(doc.uri.fsPath),
@@ -165,6 +212,12 @@ function minify(): void {
         content: doc.getText(),
         outpath: getMinOutPath(doc)
     };
+    
+    // Make sure the out path exist
+    if (!fs.existsSync(path.dirname(file.outpath))) {
+        vscode.window.showWarningMessage(`Could not write file to ${path.dirname(file.outpath)}. Path not found.`);
+        return;
+    }
 
     let stats = {
         original: file.content.length,
@@ -178,18 +231,18 @@ function minify(): void {
             let fileData: any = {};
             fileData[file.basename] = file.content;
 
-            if(settings.genJSmap) {
+            if (config.genJSmap) {
 
-                settings.js.sourceMap = {
-                    filename: settings.jsMapSource ? path.join(settings.jsMapSource, file.basename) : file.basename,
+                config.js.sourceMap = {
+                    filename: config.jsMapSource ? path.join(config.jsMapSource, file.basename) : file.basename,
                     url: path.basename(file.outpath) + '.map'
                 };
 
             }
 
-            let r = uglify.minify(file.content, settings.js);
+            let r = uglify.minify(file.content, config.js);
 
-            if(!r.code.length) {
+            if (!r.code.length) {
                 vscode.window.showErrorMessage('Minify failed.');
                 return;
             }
@@ -200,11 +253,11 @@ function minify(): void {
 
             if (r.map) {
                 let map = JSON.parse(r.map);
-                map.sources[0] = settings.jsMapSource ? path.join(settings.jsMapSource, file.basename) : file.basename;
+                map.sources[0] = config.jsMapSource ? path.join(config.jsMapSource, file.basename) : file.basename;
                 sendToFile(file.outpath + '.map', JSON.stringify(map));
             }
 
-        } catch(e) {
+        } catch (e) {
 
             vscode.window.showErrorMessage(`Minify failed: ${e.message}.`);
 
@@ -213,11 +266,11 @@ function minify(): void {
 
     } else if (doc.languageId === 'css') {
 
-        if (settings.genCSSmap) {
-            settings.css.sourceMap = true;
+        if (config.genCSSmap) {
+            config.css.sourceMap = true;
         }
 
-        const cssMinify = new cleancss(settings.css);
+        const cssMinify = new cleancss(config.css);
 
         cssMinify.minify(file.content, (_, res) => {
 
@@ -225,7 +278,7 @@ function minify(): void {
 
                 stats.minified = res.styles.length;
 
-                if (settings.genCSSmap) {
+                if (config.genCSSmap) {
 
                     const mapPath = file.outpath + '.map';
                     sendToFile(file.outpath, `${res.styles}\n/*# sourceMappingURL=${path.basename(mapPath)} */\n`, stats);
@@ -233,8 +286,8 @@ function minify(): void {
                     // Modify sources before writing to file
                     let sm = JSON.parse(JSON.stringify(res.sourceMap));
 
-                    if (settings.cssMapSource !== '') {
-                        sm.sources[0] = path.join(settings.cssMapSource, file.basename);
+                    if (config.cssMapSource !== '') {
+                        sm.sources[0] = path.join(config.cssMapSource, file.basename);
                     } else {
                         sm.sources[0] = file.basename;
                     }
@@ -259,9 +312,13 @@ function minify(): void {
 
 }
 
-export function activate(context: vscode.ExtensionContext) {
+function activate(context: vscode.ExtensionContext) {
 
-    loadConfig(false);
+    config = loadConfig({
+        showMessage: false,
+        loadExternal: true,
+        setGlobal: false,
+    });
 
     context.subscriptions.push(
         vscode.commands.registerCommand(`${ex}.loadConfig`, loadConfig),
@@ -277,15 +334,15 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.workspace.onDidSaveTextDocument(doc => {
 
-        if ((doc.languageId === 'css' || doc.languageId === 'javascript') && settings.minifyOnSave !== 'no' && settings.minifyOnSave !== false) {
+        if ((doc.languageId === 'css' || doc.languageId === 'javascript') && config.minifyOnSave !== 'no' && config.minifyOnSave !== false) {
 
             const outPath = getMinOutPath(doc);
 
-            if (settings.minifyOnSave === 'exists' && fs.existsSync(outPath)) {
+            if (config.minifyOnSave === 'exists' && fs.existsSync(outPath)) {
 
                 minify();
 
-            } else if (settings.minifyOnSave === 'yes' || settings.minifyOnSave === true) {
+            } else if (config.minifyOnSave === 'yes' || config.minifyOnSave === true) {
 
                 minify();
 
@@ -300,5 +357,13 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {
+function deactivate() {
+}
+
+export {
+    activate,
+    deactivate,
+    loadConfig,
+    getMinOutPath,
+    minify
 }
