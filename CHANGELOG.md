@@ -1,20 +1,24 @@
+# 2.1.0
+* Added some tests.
+* You can no longer minify minified files
+
 # 2.0.1
 * Fixed bug #28
 
 # 2.0.0
 * Rewritten in Typescript
 * Fixed bugs #24, #26, #27
-* Changed default value of `es6-css-minify.minifyOnSave` to `no`.
+* Changed default value of `es6-css-minify.minifyOnSave` to `no`
 
 # 0.1.6
 * Added feature from issue #23
-* Changed default value of `es6-css-minify.minifyOnSave` to `exists`.
+* Changed default value of `es6-css-minify.minifyOnSave` to `exists`
 
 # 0.1.5
 * Fixed issue #19
 
 # 0.1.4
-* Reference original file in sourcemap instead of minified file.
+* Reference original file in sourcemap instead of minified file
 
 # 0.1.3
 * Fixed issue #18 (Windows)
@@ -24,7 +28,7 @@
 * Sourcemap sources fixed #15
 
 # 0.1.1
-* Added "exists" as an option to `es6-css-minify.minifyOnSave`.
+* Added "exists" as an option to `es6-css-minify.minifyOnSave`
 * Change the JavaScript Mapping URL. `es6-css-minify.jsMapUrl`
 
 # 0.1.0
