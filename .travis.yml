@@ -11,6 +11,14 @@ before_install:
       sleep 3;
     fi
 
+language: node_js
+node_js:
+  - "7"
+
+cache:
+  directories:
+    - "node_modules"
+
 install:
   - npm install
 

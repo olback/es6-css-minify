@@ -2,9 +2,10 @@
 
 # Please read the changelog!
 
-[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/olback.es6-css-minify.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
-[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/olback.es6-css-minify.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
-[![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/2.0.svg?style=for-the-badge&logo=github&label=Github)](https://github.com/olback/es6-css-minify/tree/2.0)
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/olback.es6-css-minify.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/olback.es6-css-minify.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
+[![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/2.0.svg?style=flat&logo=github&label=Github)](https://github.com/olback/es6-css-minify/tree/2.0)
+[![Build Status](https://travis-ci.com/olback/es6-css-minify.svg?branch=2.0)](https://travis-ci.com/olback/es6-css-minify)
 
 A simple Javascript & CSS minifier.  
 A `Minify` button should appear in the status bar when opening a `.js` or a `.css` file. You can also run `Minify document` by clicking `F1`.
