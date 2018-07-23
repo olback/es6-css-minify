@@ -2,9 +2,10 @@
 
 # Please read the changelog!
 
-[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/olback.es6-css-minify.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
-[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/olback.es6-css-minify.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
-[![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/2.0.svg?style=flat&logo=github&label=Github)](https://github.com/olback/es6-css-minify/tree/2.0)
+[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
+[![rating](https://vsmarketplacebadge.apphb.com/rating-star/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
+[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
+[![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/2.0.svg?style=flat&logo=github&label=Github%20(This%20branch))](https://github.com/olback/es6-css-minify/tree/2.0)
 [![Build Status](https://travis-ci.com/olback/es6-css-minify.svg?branch=2.0)](https://travis-ci.com/olback/es6-css-minify)
 
 A simple Javascript & CSS minifier.  
