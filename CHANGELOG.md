@@ -1,4 +1,4 @@
-# 2.1.0
+# 2.0.2
 * Added some tests.
 * You can no longer minify minified files
 
