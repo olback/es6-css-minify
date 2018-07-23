@@ -4,7 +4,7 @@
  */
 
 (function ($) {
-    class showDivWithText {
+    class showDivWithTextA {
         constructor(param) {
             this.text = param;
             this.init();

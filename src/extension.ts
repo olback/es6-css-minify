@@ -5,18 +5,17 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as uglify from 'uglify-es';
 import * as cleancss from 'clean-css';
-import { pkg } from './package.json';
 
 type ConfSettings = {
     showMessage: boolean;
     loadExternal: boolean;
     setGlobal: boolean;
-}
+};
 
 type FileStats = {
     original: number;
     minified: number;
-}
+};
 
 namespace Config {
 
@@ -46,14 +45,13 @@ type Config = {
     cssMinPath: Config.path;
     css: Config._;
 
-}
+};
 
 // Store config in a global variable
 let config: Config;
 
 // Extension name
-// const ex = 'es6-css-minify';
-const ex = pkg.name;
+const ex = 'es6-css-minify';
 
 // Load config
 // export function loadConfig(showMessage = true, loadExternal = true, setGlobal = true): Config {
@@ -212,7 +210,16 @@ function minify(): void {
         content: doc.getText(),
         outpath: getMinOutPath(doc)
     };
-    
+
+    if (file.basename.split('.').length > 2) {
+
+        if (file.basename.split('.')[file.basename.split('.').length - 2] === 'min') {
+            vscode.window.showWarningMessage(`Could not minify ${file.basename}. File already minified.`);
+            return;
+        }
+
+    }
+
     // Make sure the out path exist
     if (!fs.existsSync(path.dirname(file.outpath))) {
         vscode.window.showWarningMessage(`Could not write file to ${path.dirname(file.outpath)}. Path not found.`);
@@ -365,5 +372,6 @@ export {
     deactivate,
     loadConfig,
     getMinOutPath,
-    minify
-}
+    minify,
+    ex
+};

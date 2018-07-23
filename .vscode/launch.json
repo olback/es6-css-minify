@@ -11,6 +11,7 @@
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
+                "${workspaceRoot}/src/test/workspace",
                 "--extensionDevelopmentPath=${workspaceRoot}"
             ],
             "outFiles": [
@@ -31,7 +32,7 @@
             "outFiles": [
                 "${workspaceRoot}/out/test/**/*.js"
             ],
-            "preLaunchTask": "npm: watch"
+            "preLaunchTask": "npm: compile"
         }
     ]
 }

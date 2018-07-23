@@ -1,26 +1,24 @@
+'use strict';
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { pkg } from '../package.json';
-
-// const ex = 'es6-css-minify';
+import { ex } from '../extension';
 
 suite('JS & CSS Minifier: Extension Tests', () => {
 
     test('Extension loaded by VS Code', () => {
-        // assert.ok(vscode.extensions.getExtension('olback.es6-css-minify'));
-        assert.ok(vscode.extensions.getExtension(`olback.${pkg.name}`));
+        assert.ok(vscode.extensions.getExtension(`olback.${ex}`));
     });
 
     test('Commands registered', () => {
         return vscode.commands.getCommands(true).then(commands => {
             const JS_CSS_MINIFY_COMMANDS = [
-                `${pkg.name}.reloadConfig`,
-                `${pkg.name}.minify`,
+                `${ex}.reloadConfig`,
+                `${ex}.minify`,
             ];
 
             const foundMinifierCommands = commands.filter(value => {
-                return JS_CSS_MINIFY_COMMANDS.indexOf(value) >= 0 || value.startsWith(`${pkg.name}.`);
+                return JS_CSS_MINIFY_COMMANDS.indexOf(value) >= 0 || value.startsWith(`${ex}.`);
             });
 
             const errorMsg = 'Some Minifier commands are not registered properly or a new command is not added to the test';

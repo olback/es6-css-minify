@@ -1,10 +1,10 @@
+'use strict';
 
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import { loadConfig } from '../extension';
-import { pkg } from '../package.json';
+import { loadConfig, ex } from '../extension';
 
 const WORKSPACE_PATH = path.join(__dirname, '..', '..', 'src', 'test', 'workspace');
 
@@ -18,19 +18,7 @@ suite('JS & CSS Minifier: Config tests', () => {
             setGlobal: false
         });
 
-        assert.deepStrictEqual(config, JSON.parse(JSON.stringify(vscode.workspace.getConfiguration(pkg.name))));
-
-    });
-
-    test('VS Code config is not equal to loadConfig()', () => {
-
-        const config = loadConfig({
-            showMessage: false,
-            loadExternal: true,
-            setGlobal: false
-        });
-
-        assert.notDeepStrictEqual(config, JSON.parse(JSON.stringify(vscode.workspace.getConfiguration(pkg.name))));
+        assert.deepStrictEqual(config, JSON.parse(JSON.stringify(vscode.workspace.getConfiguration(ex))));
 
     });
 
@@ -44,7 +32,7 @@ suite('JS & CSS Minifier: Config tests', () => {
 
         const uglifyrc = JSON.parse(fs.readFileSync(path.join(WORKSPACE_PATH, '.uglifyrc'), 'utf8'));
 
-        assert.equal(config.js.test_token, uglifyrc.test_token);
+        assert.deepStrictEqual(config.js, uglifyrc);
 
     });
 
@@ -58,10 +46,8 @@ suite('JS & CSS Minifier: Config tests', () => {
 
         const cleancssrc = JSON.parse(fs.readFileSync(path.join(WORKSPACE_PATH, '.cleancssrc'), 'utf8'));
 
-        assert.equal(config.css.test_token, cleancssrc.test_token);
+        assert.deepStrictEqual(config.css, cleancssrc);
 
     });
 
 });
-
-console.log(pkg.license);
