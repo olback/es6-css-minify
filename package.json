@@ -135,12 +135,13 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && CODE_TESTS_WORKSPACE=src/test/workspace node ./node_modules/vscode/bin/test"
+        "test": "npm run compile && cross-env CODE_TESTS_WORKSPACE=src/test/workspace node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
+        "@types/clean-css": "^3.4.30",
         "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
-        "@types/clean-css": "^3.4.30",
+        "cross-env": "^5.2.0",
         "tslint": "^5.8.0",
         "typescript": "^2.6.1",
         "vscode": "^1.1.18"
