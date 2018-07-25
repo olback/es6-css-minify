@@ -144,7 +144,7 @@ function getMinOutPath(doc: vscode.TextDocument): string {
     if (file.languageId === 'javascript') {
 
         if (config.jsMinPath && vscode.workspace.workspaceFolders) {
-            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, config.jsMinPath, baseOut);
+            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, config.jsMinPath, baseOut);
         } else {
             outPath = path.join(file.dirname, baseOut);
         }
@@ -152,7 +152,7 @@ function getMinOutPath(doc: vscode.TextDocument): string {
     } else if (file.languageId === 'css') {
 
         if (config.cssMinPath && vscode.workspace.workspaceFolders) {
-            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, config.cssMinPath, baseOut);
+            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, config.cssMinPath, baseOut);
         } else {
             outPath = path.join(file.dirname, baseOut);
         }
