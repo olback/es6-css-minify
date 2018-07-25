@@ -1,3 +1,7 @@
+# 2.0.3
+* Merged PR #36
+* Fixed bug #35
+
 # 2.0.2
 * Added some tests.
 * You can no longer minify minified files

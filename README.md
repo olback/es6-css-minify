@@ -1,7 +1,5 @@
 # JS & CSS Minifier
 
-# Please read the changelog!
-
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
 [![rating](https://vsmarketplacebadge.apphb.com/rating-star/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
