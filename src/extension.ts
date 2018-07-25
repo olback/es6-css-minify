@@ -65,13 +65,13 @@ function loadConfig(settings: ConfSettings = { showMessage: true, loadExternal: 
         return _config;
     }
 
-    // console.log('vsc path: ' + vscode.workspace.workspaceFolders[0].uri.path);
+    // console.log('vsc path: ' + vscode.workspace.workspaceFolders[0].uri.fsPath);
     // console.log('s path: ' + config.uglifyConfigFile);
 
     if (settings.loadExternal) {
 
         // Load uglify config if it exists
-        const uglifyrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, _config.uglifyConfigFile);
+        const uglifyrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, _config.uglifyConfigFile);
         if (fs.existsSync(uglifyrcPath)) {
 
             try {
@@ -90,7 +90,7 @@ function loadConfig(settings: ConfSettings = { showMessage: true, loadExternal: 
         }
 
         // Load cleancss config if it exists
-        const cleancssrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.path, _config.cleancssConfigFile);
+        const cleancssrcPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, _config.cleancssConfigFile);
         if (fs.existsSync(cleancssrcPath)) {
 
             try {
@@ -135,9 +135,9 @@ function getMinOutPath(doc: vscode.TextDocument): string {
     let outNameParts = file.basename.split('.');
 
     outNameParts.pop();
-    outNameParts.push('.min');
-    outNameParts.push(file.extname);
-    const baseOut = outNameParts.join('');
+    outNameParts.push('min');
+    outNameParts.push(file.extname.replace('.', ''));
+    const baseOut = outNameParts.join('.');
 
     let outPath: string;
 
@@ -222,7 +222,7 @@ function minify(): void {
 
     // Make sure the out path exist
     if (!fs.existsSync(path.dirname(file.outpath))) {
-        vscode.window.showWarningMessage(`Could not write file to ${path.dirname(file.outpath)}. Path not found.`);
+        vscode.window.showWarningMessage(`Could not write file to folder ${path.dirname(file.outpath)}. Path not found.`);
         return;
     }
 

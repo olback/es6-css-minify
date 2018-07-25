@@ -1,5 +1,5 @@
 {
     "es6-css-minify.minifyOnSave": "exists",
-    "es6-css-minify.jsMinPath": "dist/js",
+    "es6-css-minify.jsMinPath": "",
     "es6-css-minify.cssMinPath": "dist/css"
 }
