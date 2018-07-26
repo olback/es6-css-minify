@@ -9,9 +9,10 @@
         "color": "#333",
         "theme": "dark"
     },
-    "license": "MIT",
+    "license": "SEE LICENSE IN LICENSE.md",
     "homepage": "https://github.com/olback/es6-css-minify",
     "bugs": "https://github.com/olback/es6-css-minify/issues",
+    "qna": "https://github.com/olback/es6-css-minify/issues",
     "repository": {
         "type": "git",
         "url": "https://github.com/olback/es6-css-minify.git"

@@ -359,6 +359,16 @@ function activate(context: vscode.ExtensionContext) {
 
     });
 
+    vscode.workspace.onDidChangeConfiguration(() => {
+
+        config = loadConfig({
+            showMessage: true,
+            loadExternal: true,
+            setGlobal: false,
+        });
+
+    });
+
     console.log('es6-css-minify 2 is now active!');
 
 }
