@@ -32,7 +32,7 @@
         "Other"
     ],
     "engines": {
-        "vscode": "^1.25.0"
+        "vscode": "^1.18.0"
     },
     "activationEvents": [
         "onCommand:es6-css-minify.loadConfig",
