@@ -49,9 +49,10 @@ type Config = {
 
 // Store config in a global variable
 let config: Config;
+let minifyButton: vscode.StatusBarItem;
 
 // Extension name
-const ex = 'es6-css-minify';
+const ex: string = 'es6-css-minify';
 
 // Load config
 // export function loadConfig(showMessage = true, loadExternal = true, setGlobal = true): Config {
@@ -115,7 +116,7 @@ function loadConfig(settings: ConfSettings = { showMessage: true, loadExternal: 
     }
 
     if (settings.showMessage) {
-        vscode.window.showInformationMessage('Minify configuration config reloaded.');
+        vscode.window.showInformationMessage('Minify configuration reloaded.');
     }
 
     return _config;
@@ -333,7 +334,7 @@ function activate(context: vscode.ExtensionContext) {
     );
 
     // Add 'Minify' status bar button
-    const minifyButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+    minifyButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
     minifyButton.text = 'Minify';
     minifyButton.command = `${ex}.minify`;
     minifyButton.tooltip = 'Minify current file';
@@ -359,6 +360,30 @@ function activate(context: vscode.ExtensionContext) {
 
     });
 
+    // Hide the minify button unless the active document is a non-minified JS/CSS file.
+    // vscode.workspace.onDidOpenTextDocument(() => {
+
+    //     if (!vscode.window.activeTextEditor) {
+    //         return;
+    //     }
+
+    //     const doc: vscode.TextDocument = vscode.window.activeTextEditor.document;
+
+    //     const da = doc.uri.fsPath.split('.');
+
+    //     const supported: Array<String> = [
+    //         'javascript',
+    //         'css'
+    //     ];
+
+    //     if (supported.indexOf(doc.languageId) < 0 || da[da.length - 2] === 'min') {
+    //         minifyButton.hide();
+    //     } else {
+    //         minifyButton.show();
+    //     }
+
+    // });
+
     vscode.workspace.onDidChangeConfiguration(() => {
 
         config = loadConfig({
@@ -373,7 +398,7 @@ function activate(context: vscode.ExtensionContext) {
 
 }
 
-// this method is called when your extension is deactivated
+// This method is called when your extension is deactivated
 function deactivate() {
 }
 
