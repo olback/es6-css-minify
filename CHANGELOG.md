@@ -1,5 +1,6 @@
 # 2.1.0
 * You no longer have to run `Minify: Reload config` when updating your config. It's done automatically.
+* ~~Hide Minify button when the filetype isn't js or css~~ (not enabled)
 
 # 2.0.3
 * Merged PR #36
