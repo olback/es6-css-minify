@@ -35,6 +35,6 @@ console.log(c(a,b));
 
 async function foo(url) {
 
-    return await fetch('https://example.com');
+    return await fetch(url);
 
 }
