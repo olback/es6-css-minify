@@ -1,5 +1,6 @@
 {
     "es6-css-minify.minifyOnSave": "exists",
     "es6-css-minify.jsMinPath": "",
-    "es6-css-minify.cssMinPath": "dist/css"
+    "es6-css-minify.cssMinPath": "dist/css",
+    "es6-css-minify.hideButton": true
 }

@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS",
-    "version": "2.0.3",
+    "version": "2.1.0",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -44,8 +44,7 @@
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [
-            {
+        "commands": [{
                 "command": "es6-css-minify.loadConfig",
                 "title": "Minify: Reload config"
             },
@@ -67,6 +66,11 @@
                         "no",
                         "exists"
                     ]
+                },
+                "es6-css-minify.hideButton": {
+                    "type": "boolean",
+                    "description": "Hide the 'Minify' button in the status bar if it's a file you can't minify.",
+                    "default": false
                 },
                 "es6-css-minify.uglifyConfigFile": {
                     "type": "string",
@@ -149,7 +153,7 @@
     },
     "dependencies": {
         "clean-css": "^4.1.11",
-        "uglify-es": "^3.3.9",
+        "terser": "^3.10.0",
         "vscode": "^1.1.18"
     }
 }
