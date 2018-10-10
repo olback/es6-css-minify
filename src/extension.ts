@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as uglify from 'uglify-es';
+import * as terser from 'terser';
 import * as cleancss from 'clean-css';
 
 type ConfSettings = {
@@ -30,6 +30,7 @@ type Config = {
 
     // General extension settings
     minifyOnSave: Config.minifyOnSave;
+    hideButton: Config.bool;
 
     // JS
     uglifyConfigFile: Config.path;
@@ -248,7 +249,7 @@ function minify(): void {
 
             }
 
-            let r = uglify.minify(file.content, config.js);
+            let r = terser.minify(file.content, config.js);
 
             if (!r.code.length) {
                 vscode.window.showErrorMessage('Minify failed.');
@@ -267,7 +268,7 @@ function minify(): void {
 
         } catch (e) {
 
-            vscode.window.showErrorMessage(`Minify failed: ${e.message}.`);
+            vscode.window.showErrorMessage(`Minify failed. This is probably caused by a syntax error. Error message: ${e.message}.`);
 
         }
 
@@ -361,28 +362,28 @@ function activate(context: vscode.ExtensionContext) {
     });
 
     // Hide the minify button unless the active document is a non-minified JS/CSS file.
-    // vscode.workspace.onDidOpenTextDocument(() => {
+    vscode.workspace.onDidOpenTextDocument(() => {
 
-    //     if (!vscode.window.activeTextEditor) {
-    //         return;
-    //     }
+        if (!vscode.window.activeTextEditor || config.hideButton === false) {
+            return;
+        }
 
-    //     const doc: vscode.TextDocument = vscode.window.activeTextEditor.document;
+        const doc: vscode.TextDocument = vscode.window.activeTextEditor.document;
 
-    //     const da = doc.uri.fsPath.split('.');
+        const da = doc.uri.fsPath.split('.');
 
-    //     const supported: Array<String> = [
-    //         'javascript',
-    //         'css'
-    //     ];
+        const supported: Array<String> = [
+            'javascript',
+            'css'
+        ];
 
-    //     if (supported.indexOf(doc.languageId) < 0 || da[da.length - 2] === 'min') {
-    //         minifyButton.hide();
-    //     } else {
-    //         minifyButton.show();
-    //     }
+        if (supported.indexOf(doc.languageId) < 0 || da[da.length - 2] === 'min') {
+            minifyButton.hide();
+        } else {
+            minifyButton.show();
+        }
 
-    // });
+    });
 
     vscode.workspace.onDidChangeConfiguration(() => {
 

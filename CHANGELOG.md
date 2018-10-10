@@ -1,6 +1,8 @@
 # 2.1.0
 * You no longer have to run `Minify: Reload config` when updating your config. It's done automatically.
-* ~~Hide Minify button when the filetype isn't js or css~~ (not enabled)
+* Hide Minify button when the filetype isn't supported. This can be enable by changing `es6-css-minify.hideButton` to `true`.
+* Use [terser](https://www.npmjs.com/package/terser) instead of uglify-es since it's deprecated. (#46)
+* Inform the user when Javascript minify fails about syntax errors. (#45)
 
 # 2.0.3
 * Merged PR #36
