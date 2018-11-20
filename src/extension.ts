@@ -22,6 +22,7 @@ namespace Config {
     export type minifyOnSave = 'yes' | 'no' | 'exists' | boolean;
     export type path = string;
     export type bool = boolean;
+    export type str = string;
     export type _ = any;
 
 }
@@ -37,6 +38,7 @@ type Config = {
     genJSmap: Config.bool;
     jsMapSource: Config.path;
     jsMinPath: Config.path;
+    jsPostfix: Config.str;
     js: Config._;
 
     // CSS
@@ -137,7 +139,9 @@ function getMinOutPath(doc: vscode.TextDocument): string {
     let outNameParts = file.basename.split('.');
 
     outNameParts.pop();
-    outNameParts.push('min');
+    if (config.jsPostfix) {
+        outNameParts.push(config.jsPostfix);
+    }
     outNameParts.push(file.extname.replace('.', ''));
     const baseOut = outNameParts.join('.');
 

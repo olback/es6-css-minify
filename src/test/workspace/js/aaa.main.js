@@ -3,7 +3,7 @@
  *  https://github.com/olback/es6-css-minify/issues/1
  */
 
-(function ($) {
+(function($) {
     class showDivWithText {
         constructor(param) {
             this.text = param;
@@ -11,7 +11,9 @@
         }
 
         init() {
-            $("<div />").text(this.text).appendTo('body');
+            $("<div />")
+                .text(this.text)
+                .appendTo("body");
         }
     }
 })(jQuery);
@@ -24,17 +26,15 @@ let a = {
     cs: "khfgjhkjfghkljfgjhfghfggfhgf",
     ds: "gfdgdjghdfjghdfjghdfjlghfd",
     es: "aaaaaaaaaaaaaaaaaaaaaaaaa"
-}
+};
 const b = 43;
 
 const c = (a, b) => {
     return a * b;
-}
+};
 
-console.log(c(a,b));
+console.log(c(a, b));
 
 async function foo(url) {
-
     return await fetch(url);
-
 }

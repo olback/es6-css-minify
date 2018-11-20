@@ -44,7 +44,8 @@
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
+        "commands": [
+            {
                 "command": "es6-css-minify.loadConfig",
                 "title": "Minify: Reload config"
             },
@@ -91,6 +92,11 @@
                     "type": "string",
                     "description": "Where to save the minified file.\nDefault: '' - saves in the same directory.\n'/' - Save in workspace root.",
                     "default": ""
+                },
+                "es6-css-minify.jsPostfix": {
+                    "type": "string",
+                    "description": "Filename postfix",
+                    "default": "min"
                 },
                 "es6-css-minify.js": {
                     "type": "object",
