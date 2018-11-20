@@ -5,6 +5,8 @@
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
 [![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/2.0.svg?style=flat&logo=github&label=Github%20(This%20branch))](https://github.com/olback/es6-css-minify/tree/2.0)
 
+If you found this extension useful and want to support further development, you can [donate](https://www.paypal.me/olback) a small amount.
+
 Linux / MacOS: [![Build Status](https://travis-ci.com/olback/es6-css-minify.svg?branch=2.0)](https://travis-ci.com/olback/es6-css-minify)
 
 Windows: [![Build status](https://ci.appveyor.com/api/projects/status/9xa8j6tq3vstixj2?svg=true)](https://ci.appveyor.com/project/olback/es6-css-minify)
