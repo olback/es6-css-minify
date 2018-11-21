@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -44,7 +44,8 @@
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
+        "commands": [
+            {
                 "command": "es6-css-minify.loadConfig",
                 "title": "Minify: Reload config"
             },
@@ -92,6 +93,11 @@
                     "description": "Where to save the minified file.\nDefault: '' - saves in the same directory.\n'/' - Save in workspace root.",
                     "default": ""
                 },
+                "es6-css-minify.jsPostfix": {
+                    "type": "string",
+                    "description": "Filename postfix",
+                    "default": "min"
+                },
                 "es6-css-minify.js": {
                     "type": "object",
                     "description": "Uglify-es settings. For more info visit https://www.npmjs.com/package/uglify-es#parse-options.",
@@ -124,6 +130,11 @@
                     "type": "string",
                     "description": "Where to save the minified file.\nDefault: '' - saves in the same directory.\n'/' - Save in workspace root.",
                     "default": ""
+                },
+                "es6-css-minify.cssPostfix": {
+                    "type": "string",
+                    "description": "Filename postfix",
+                    "default": "min"
                 },
                 "es6-css-minify.css": {
                     "type": "object",

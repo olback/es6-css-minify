@@ -22,6 +22,7 @@ namespace Config {
     export type minifyOnSave = 'yes' | 'no' | 'exists' | boolean;
     export type path = string;
     export type bool = boolean;
+    export type str = string;
     export type _ = any;
 
 }
@@ -37,6 +38,7 @@ type Config = {
     genJSmap: Config.bool;
     jsMapSource: Config.path;
     jsMinPath: Config.path;
+    jsPostfix: Config.str;
     js: Config._;
 
     // CSS
@@ -44,6 +46,7 @@ type Config = {
     genCSSmap: Config.bool;
     cssMapSource: Config.path;
     cssMinPath: Config.path;
+    cssPostfix: Config.str;
     css: Config._;
 
 };
@@ -137,7 +140,17 @@ function getMinOutPath(doc: vscode.TextDocument): string {
     let outNameParts = file.basename.split('.');
 
     outNameParts.pop();
-    outNameParts.push('min');
+
+    if (config.jsPostfix && file.languageId === 'javascript') {
+
+        outNameParts.push(config.jsPostfix);
+
+    } else if (config.cssPostfix && file.languageId === 'css') {
+
+        outNameParts.push(config.cssPostfix);
+
+    }
+
     outNameParts.push(file.extname.replace('.', ''));
     const baseOut = outNameParts.join('.');
 
@@ -210,12 +223,15 @@ function minify(): void {
         extname: path.extname(doc.uri.fsPath),
         dirname: path.dirname(doc.uri.fsPath),
         content: doc.getText(),
-        outpath: getMinOutPath(doc)
+        outpath: getMinOutPath(doc),
+        languageId: doc.languageId
     };
 
     if (file.basename.split('.').length > 2) {
 
-        if (file.basename.split('.')[file.basename.split('.').length - 2] === 'min') {
+        const postfix = file.basename.split('.')[file.basename.split('.').length - 2];
+
+        if ((file.languageId === 'css' && postfix === config.cssPostfix) || (file.languageId === 'javascript' && postfix === config.jsPostfix)) {
             vscode.window.showWarningMessage(`Could not minify ${file.basename}. File already minified.`);
             return;
         }
@@ -372,7 +388,7 @@ function activate(context: vscode.ExtensionContext) {
 
         const da = doc.uri.fsPath.split('.');
 
-        const supported: Array<String> = [
+        const supported: string[] = [
             'javascript',
             'css'
         ];
