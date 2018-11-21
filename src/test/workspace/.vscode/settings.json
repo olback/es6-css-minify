@@ -1,5 +1,4 @@
 {
-    "es6-css-minify.jsMinPath": "",
     "es6-css-minify.cssMinPath": "dist/css",
-    "es6-css-minify.jsPostfix": "min"
+    "es6-css-minify.cssPostfix": "minified"
 }

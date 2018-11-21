@@ -4,7 +4,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { ex } from '../extension';
 
-suite('JS & CSS Minifier: Extension Tests', () => {
+suite('Extension Tests', () => {
 
     test('Extension loaded by VS Code', () => {
         assert.ok(vscode.extensions.getExtension(`olback.${ex}`));
