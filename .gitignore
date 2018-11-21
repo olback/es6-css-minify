@@ -2,10 +2,11 @@ out
 node_modules
 .vscode-test/
 *.vsix
-src/test/workspace/dist
 
 # Test files
 *.min.js
 *.min.js.map
 *.min.css
 *.min.css.map
+*.minified.*
+*.minified.*.map

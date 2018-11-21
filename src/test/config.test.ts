@@ -5,10 +5,9 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import { loadConfig, ex } from '../extension';
+import { WORKSPACE_PATH } from './tests_config';
 
-const WORKSPACE_PATH = path.join(__dirname, '..', '..', 'src', 'test', 'workspace');
-
-suite('JS & CSS Minifier: Config tests', () => {
+suite('Config tests', () => {
 
     test('Config loading OK', () => {
 
