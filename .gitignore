@@ -8,5 +8,5 @@ node_modules
 *.min.js.map
 *.min.css
 *.min.css.map
-*.minified.js
-*.minified.js.map
+*.minified.*
+*.minified.*.map
