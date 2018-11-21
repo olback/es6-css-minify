@@ -131,6 +131,11 @@
                     "description": "Where to save the minified file.\nDefault: '' - saves in the same directory.\n'/' - Save in workspace root.",
                     "default": ""
                 },
+                "es6-css-minify.cssPostfix": {
+                    "type": "string",
+                    "description": "Filename postfix",
+                    "default": "min"
+                },
                 "es6-css-minify.css": {
                     "type": "object",
                     "description": "Clean-CSS settings. For more info visit https://www.npmjs.com/package/clean-css.",

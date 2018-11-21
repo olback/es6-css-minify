@@ -46,6 +46,7 @@ type Config = {
     genCSSmap: Config.bool;
     cssMapSource: Config.path;
     cssMinPath: Config.path;
+    cssPostfix: Config.str;
     css: Config._;
 
 };
@@ -141,6 +142,9 @@ function getMinOutPath(doc: vscode.TextDocument): string {
     outNameParts.pop();
     if (config.jsPostfix) {
         outNameParts.push(config.jsPostfix);
+    }
+    if (config.cssPostfix) {
+        outNameParts.push(config.cssPostfix);
     }
     outNameParts.push(file.extname.replace('.', ''));
     const baseOut = outNameParts.join('.');
