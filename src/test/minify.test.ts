@@ -43,7 +43,6 @@ suite('Minfy Tests', () => {
         await vscode.commands.executeCommand(`${ex}.minify`);
 
         const mincssp = path.join(WORKSPACE_PATH, 'dist', 'css', 'main.minified.css');
-        console.log(mincssp);
         setTimeout(() => {
             assert.equal(fs.existsSync(mincssp), true, 'Minified file does not exist');
         }, 50);
