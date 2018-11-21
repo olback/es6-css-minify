@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {

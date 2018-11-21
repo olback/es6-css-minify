@@ -1,3 +1,6 @@
+# 2.2.0
+* Implemented postfix. [See this PR](https://github.com/olback/es6-css-minify/pull/51)
+
 # 2.1.0
 * You no longer have to run `Minify: Reload config` when updating your config. It's done automatically.
 * Hide Minify button when the filetype isn't supported. This can be enable by changing `es6-css-minify.hideButton` to `true`.
