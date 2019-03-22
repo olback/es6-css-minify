@@ -1,4 +1,7 @@
-# 2.3.0
+# 2.4.0
+* Implemented Autoprefixer as requested in Issue#59. This can be enabled in the config.
+
+## 2.3.0
 * Implemented 'Minify selection' as requested by @dwelle in issue#56.
 
 ## 2.2.0
