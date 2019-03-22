@@ -202,8 +202,6 @@ function sendToFile(path: string, content: string, stats?: FileStats): void {
 
 function minify(): void {
 
-    console.log('hello?');
-
     const active = vscode.window.activeTextEditor;
 
     // No document open
