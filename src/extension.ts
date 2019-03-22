@@ -337,6 +337,71 @@ function minify(): void {
 
 }
 
+function minifySelection() {
+
+    const editor = vscode.window.activeTextEditor;
+
+    if (editor) {
+
+        const text = editor.document.getText(editor.selection);
+
+        if (!text.trim()) {
+            vscode.window.showWarningMessage('No text selected.');
+            return;
+        }
+
+        if (editor.document.languageId === 'css') {
+
+            const output = new cleancss(config.css).minify(text);
+
+            if (output.errors.length || !output.styles.trim().length) {
+
+                const err = JSON.stringify(output.errors);
+
+                vscode.window.showErrorMessage(`Error minifying selection. ${output.errors.length ? err : 'Invalid CSS?'}`);
+
+            } else {
+
+                editor.insertSnippet(new vscode.SnippetString(output.styles));
+
+            }
+
+
+        } else if (editor.document.languageId === 'javascript') {
+
+            const output = terser.minify(text, config.js);
+
+            if (output.code) {
+
+                editor.insertSnippet(new vscode.SnippetString(output.code));
+
+            } else if (output.error) {
+
+                const err = output.error;
+
+                vscode.window.showErrorMessage(`${err.message} at ${err.line}:${err.col}. Pos: ${err.pos} of selection.`);
+
+            } else {
+
+                vscode.window.showErrorMessage('Unkown error.');
+
+            }
+
+
+        } else {
+
+            vscode.window.showErrorMessage('Language not supported.');
+
+        }
+
+    } else {
+
+        vscode.window.showErrorMessage('No document open.');
+
+    }
+
+}
+
 function activate(context: vscode.ExtensionContext) {
 
     config = loadConfig({
@@ -347,7 +412,8 @@ function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerCommand(`${ex}.loadConfig`, loadConfig),
-        vscode.commands.registerCommand(`${ex}.minify`, minify)
+        vscode.commands.registerCommand(`${ex}.minify`, minify),
+        vscode.commands.registerCommand(`${ex}.minifySelection`, minifySelection)
     );
 
     // Add 'Minify' status bar button

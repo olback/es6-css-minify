@@ -15,6 +15,7 @@ suite('Extension Tests', () => {
             const JS_CSS_MINIFY_COMMANDS = [
                 `${ex}.reloadConfig`,
                 `${ex}.minify`,
+                `${ex}.minifySelection`,
             ];
 
             const foundMinifierCommands = commands.filter(value => {
