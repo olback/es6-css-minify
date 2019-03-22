@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as terser from 'terser';
 import * as cleancss from 'clean-css';
+import * as autoprefixer from 'autoprefixer';
 
 type ConfSettings = {
     showMessage: boolean;
@@ -49,6 +50,9 @@ type Config = {
     cssPostfix: Config.str;
     css: Config._;
 
+    // Autoprefixer (CSS)
+    enableAutoprefixer: Config.bool;
+    autoprefixer: Config._;
 };
 
 // Store config in a global variable
@@ -198,6 +202,8 @@ function sendToFile(path: string, content: string, stats?: FileStats): void {
 
 function minify(): void {
 
+    console.log('hello?');
+
     const active = vscode.window.activeTextEditor;
 
     // No document open
@@ -297,7 +303,23 @@ function minify(): void {
 
         const cssMinify = new cleancss(config.css);
 
-        cssMinify.minify(file.content, (_, res) => {
+        let cssContent = file.content;
+
+        if (config.enableAutoprefixer) {
+
+            try {
+
+                cssContent = autoprefixer.process(cssContent, config.autoprefixer).toString();
+
+            } catch (e) {
+
+                vscode.window.showErrorMessage('Autoprefixer failed to parse CSS.');
+                return;
+
+            }
+        }
+
+        cssMinify.minify(cssContent, (_, res) => {
 
             if (res && res.styles) {
 

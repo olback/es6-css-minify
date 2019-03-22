@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS",
-    "version": "2.3.0",
+    "version": "2.4.0",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -147,6 +147,16 @@
                     "default": {
                         "rebase": false
                     }
+                },
+                "es6-css-minify.enableAutoprefixer": {
+                    "type": "boolean",
+                    "description": "Enable autoprefixer?",
+                    "default": false
+                },
+                "es6-css-minify.autoprefixer": {
+                    "type": "object",
+                    "description": "Autoprefixer options object. For more info visit https://github.com/postcss/autoprefixer#options",
+                    "default": {}
                 }
             }
         }
@@ -168,6 +178,7 @@
         "vscode": "^1.1.18"
     },
     "dependencies": {
+        "autoprefixer": "^9.5.0",
         "clean-css": "^4.1.11",
         "terser": "^3.10.0"
     }
