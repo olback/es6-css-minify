@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS",
-    "version": "2.4.0",
+    "version": "2.5.0",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -40,8 +40,10 @@
         "onCommand:es6-css-minify.minifySelection",
         "onLanguage:css",
         "onLanguage:javascript",
+        "onLanguage:json",
         "workspaceContains:**/*.css",
-        "workspaceContains:**/*.js"
+        "workspaceContains:**/*.js",
+        "workspaceContains:**/*.json"
     ],
     "main": "./out/extension",
     "contributes": {

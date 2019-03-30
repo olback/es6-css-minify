@@ -1,4 +1,7 @@
-# 2.4.0
+# 2.5.0
+* Implemented JSON minification. See #54.
+
+## 2.4.0
 * Implemented Autoprefixer as requested in Issue#59. This can be enabled in the config.
 
 ## 2.3.0

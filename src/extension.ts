@@ -217,7 +217,7 @@ function minify(): void {
 
     const doc = active.document;
 
-    if (doc.languageId !== 'javascript' && doc.languageId !== 'css') {
+    if (doc.languageId !== 'javascript' && doc.languageId !== 'css' && doc.languageId !== 'json') {
         vscode.window.showWarningMessage(`File with type ${doc.languageId} is not supported by ${ex}`);
         return;
     }
@@ -353,6 +353,10 @@ function minify(): void {
 
         });
 
+    } else if (doc.languageId === 'json') {
+
+        vscode.window.showWarningMessage('JSON File minification is currently not supported. Select the data you want to miniyf and use \'Minify Selection\'.');
+
     }
 
 }
@@ -407,6 +411,19 @@ function minifySelection() {
 
             }
 
+
+        } else if (editor.document.languageId === 'json') {
+
+            try {
+
+                const output = JSON.stringify(JSON.parse(text));
+                editor.insertSnippet(new vscode.SnippetString(output));
+
+            } catch (e) {
+
+                vscode.window.showErrorMessage('Failed to minify selection. This is most likely due to a syntax error.');
+
+            }
 
         } else {
 
