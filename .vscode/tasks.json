@@ -5,7 +5,7 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "watch",
+            "script": "webpack-dev",
             "problemMatcher": "$tsc-watch",
             "isBackground": true,
             "presentation": {
@@ -18,7 +18,7 @@
         },
         {
             "type": "npm",
-            "script": "compile",
+            "script": "build",
             "isBackground": false,
             "presentation": {
                 "reveal": "always"

@@ -1,4 +1,7 @@
-# 2.5.0
+# 2.6.0
+* Package extension with Webpack to improve performance. See #66.
+
+## 2.5.0
 * Implemented JSON minification. See #54.
 
 ## 2.4.0
