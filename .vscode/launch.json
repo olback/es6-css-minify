@@ -17,7 +17,7 @@
             "outFiles": [
                 "${workspaceRoot}/out/**/*.js"
             ],
-            "preLaunchTask": "npm: watch"
+            "preLaunchTask": "npm: webpack-dev"
         },
         {
             "name": "Launch Tests",
@@ -33,7 +33,7 @@
             "outFiles": [
                 "${workspaceRoot}/out/test/**/*.js"
             ],
-            "preLaunchTask": "npm: compile"
+            "preLaunchTask": "npm: build"
         }
     ]
 }

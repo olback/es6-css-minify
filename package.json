@@ -45,7 +45,7 @@
         "workspaceContains:**/*.js",
         "workspaceContains:**/*.json"
     ],
-    "main": "./out/extension",
+    "main": "./dist/extension",
     "contributes": {
         "commands": [
             {
@@ -164,24 +164,31 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
+        "vscode:prepublish": "npm run build",
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && cross-env CODE_TESTS_WORKSPACE=src/test/workspace node ./node_modules/vscode/bin/test"
+        "build": "node_modules/.bin/webpack --mode production",
+        "webpack": "node_modules/.bin/webpack --mode development",
+        "webpack-dev": "node_modules/.bin/webpack --mode development --watch",
+        "ts:build": "tsc -p ./",
+        "ts:watch": "tsc -p ./ --watch",
+        "ts:test-build": "tsc -p ./tsconfig.test.json",
+        "ts:test-watch": "tsc -p ./tsconfig.test.json --watch",
+        "test": "npm run build && npm run ts:test-build && cross-env CODE_TESTS_WORKSPACE=src/test/workspace node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
         "@types/clean-css": "^3.4.30",
         "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
         "cross-env": "^5.2.0",
+        "ts-loader": "^5.4.5",
         "tslint": "^5.8.0",
         "typescript": "^2.6.1",
-        "vscode": "^1.1.18"
-    },
-    "dependencies": {
-        "autoprefixer": "^9.5.0",
+        "vscode": "^1.1.18",
+        "webpack": "^4.30.0",
+        "webpack-cli": "^3.3.2",
+        "autoprefixer": "^9.5.1",
         "clean-css": "^4.1.11",
-        "terser": "^3.10.0"
-    }
+        "terser": "^3.17.0"
+    },
+    "dependencies": {}
 }
