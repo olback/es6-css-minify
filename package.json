@@ -173,7 +173,8 @@
         "ts:watch": "tsc -p ./ --watch",
         "ts:test-build": "tsc -p ./tsconfig.test.json",
         "ts:test-watch": "tsc -p ./tsconfig.test.json --watch",
-        "test": "npm run build && npm run ts:test-build && cross-env CODE_TESTS_WORKSPACE=src/test/workspace node ./node_modules/vscode/bin/test"
+        "pretest": "npm run build && npm run ts:test-build",
+        "test": "cross-env CODE_TESTS_WORKSPACE=src/test/workspace node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
         "@types/clean-css": "^3.4.30",
