@@ -1,4 +1,7 @@
-# 2.6.0
+# 2.7.0
+* Fixed issue #57. (Thanks for the PR @MuTsunTsai)
+
+## 2.6.0
 * Package extension with Webpack to improve performance. See #66.
 
 ## 2.5.0
