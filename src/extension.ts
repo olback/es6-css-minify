@@ -87,8 +87,9 @@ function loadConfig(settings: ConfSettings = { showMessage: true, loadExternal: 
 
                 _config.js = JSON.parse(fs.readFileSync(uglifyrcPath, 'utf8'));
                 // console.log(`${uglifyrcPath} loaded.`);
-                if(_config.js.mangle && _config.js.mangle.properties && _config.js.mangle.properties.regex)
+                if(_config.js.mangle && _config.js.mangle.properties && _config.js.mangle.properties.regex) {
                     _config.js.mangle.properties.regex = RegExp(_config.js.mangle.properties.regex);
+                }
 
             } catch (e) {
 
