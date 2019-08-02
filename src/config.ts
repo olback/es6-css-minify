@@ -100,7 +100,7 @@ export class Config {
                 }
             }
 
-        } else {
+        } else if (external) {
 
             vscode.window.showWarningMessage('Not loading any custom configs since no workspace is open!');
 
