@@ -1,3 +1,7 @@
+# 3.0.0
+* Complete re-write. The extension is now divided into multiple files.
+* Bump dependency versions. (Closes #74)
+
 # 2.7.0
 * Fixed issue #57. (Thanks for the PR @MuTsunTsai)
 
