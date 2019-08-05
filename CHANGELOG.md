@@ -1,8 +1,17 @@
 # 3.0.0
-* Complete re-write. The extension is now divided into multiple files.
+* Complete re-write. The extension is now divided into multiple files. This makes it easier to maintain.
 * Bump dependency versions. (Closes #74)
+* You can now see warnings and errors directly from clean-css and terser.
+* No breaking changes from `2.7.0`.
+* `es6-css-minify.hideButton` is set to `true` by default.
+* New settigns:
+    - `es6-css-minify.showLogOnWarning` Show output if there are any warnings. Defualt: `true`.
+    - `es6-css-minify.showLogOnError` Show output if there are any errors. Defualt: `true`.
+    - `es6-css-minify.onSaveDelay` Delay in milliseconds before the file is minified. Default: `0`
+    - `es6-css-minify.enableAutoprefixerSelection` Enable autoprefixer when minifying a selection. Default: `false`
+    - `es6-css-minify.autoprefixerConfigFile` Specify a autoprefixer config file. Default: `".autoprefixerrc"`
 
-# 2.7.0
+## 2.7.0
 * Fixed issue #57. (Thanks for the PR @MuTsunTsai)
 
 ## 2.6.0
