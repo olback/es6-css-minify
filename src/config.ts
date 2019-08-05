@@ -11,6 +11,9 @@ export class Config {
     // General
     minifyOnSave: boolean | "yes" | "no" | "exists";
     hideButton: boolean;
+    showLogOnWarning: boolean;
+    showLogOnError: boolean;
+    onSaveDelay: number;
 
     // Terser
     uglifyConfigFile: string;
@@ -30,6 +33,7 @@ export class Config {
 
     // Autoprefixer
     enableAutoprefixer: boolean;
+    enableAutoprefixerSelection: boolean;
     autoprefixer: autoprefixer.Options;
     autoprefixerConfigFile: string;
 
@@ -40,6 +44,9 @@ export class Config {
         // General
         this.minifyOnSave = conf.minifyOnSave;
         this.hideButton = conf.hideButton;
+        this.showLogOnWarning = conf.showLogOnWarning;
+        this.showLogOnError = conf.showLogOnError;
+        this.onSaveDelay = conf.onSaveDelay;
 
         // Terser
         this.uglifyConfigFile = conf.uglifyConfigFile;
@@ -59,6 +66,7 @@ export class Config {
 
         // Autoprefixer
         this.enableAutoprefixer = conf.enableAutoprefixer;
+        this.enableAutoprefixerSelection = conf.enableAutoprefixerSelection;
         this.autoprefixer = conf.autoprefixer;
         this.autoprefixerConfigFile = conf.autoprefixerConfigFile;
 

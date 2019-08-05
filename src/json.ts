@@ -14,7 +14,7 @@ export class JsonMinifier {
                 success: true,
                 efficiency: efficiency(input.length, output.length),
                 warnings: [],
-                erros: [],
+                errors: [],
                 output: {
                     code: output,
                     map: ''
@@ -28,7 +28,7 @@ export class JsonMinifier {
             return {
                 success: false,
                 warnings: [],
-                erros: [e.message]
+                errors: [e.message]
             };
 
         }

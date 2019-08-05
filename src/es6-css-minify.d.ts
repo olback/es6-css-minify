@@ -4,7 +4,7 @@ interface MinifySuccess {
     success: true;
     efficiency: number;
     warnings: string[];
-    erros: string[];
+    errors: string[];
     output: {
         code: string;
         map: string;
@@ -14,5 +14,5 @@ interface MinifySuccess {
 interface MinifyError {
     success: false;
     warnings: string[];
-    erros: string[];
+    errors: string[];
 }

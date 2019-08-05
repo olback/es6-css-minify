@@ -1,5 +1,6 @@
 import * as cleancss from 'clean-css';
 import autoprefixer = require('autoprefixer');
+import { efficiency } from './utils';
 
 export class CssMinifier {
 
@@ -20,8 +21,8 @@ export class CssMinifier {
                 return {
                     success: false,
                     warnings: [],
-                    erros: [
-                        'Autoprefixer failed to parse CSS. Probaly due to an syntax error.',
+                    errors: [
+                        // 'Autoprefixer failed to parse CSS. Probaly due to an syntax error.',
                          e.message
                     ]
                 };
@@ -41,20 +42,18 @@ export class CssMinifier {
             return {
                 success: false,
                 warnings: output.warnings,
-                erros: output.errors
+                errors: output.errors
             };
 
         } else if (output.styles.trim().length === 0) {
 
-            const warnings: string[] = [];
-            warnings.push('Output is 0 bytes!');
-            warnings.concat(output.warnings);
+            const warnings = ['Output is 0 bytes!'].concat(output.warnings);
 
             return {
                 success: true,
-                efficiency: output.stats.efficiency,
+                efficiency: efficiency(output.stats.originalSize, output.stats.minifiedSize),
                 warnings: warnings,
-                erros: output.errors,
+                errors: output.errors,
                 output: {
                     code: output.styles,
                     map: output.sourceMap
@@ -65,9 +64,9 @@ export class CssMinifier {
 
             return {
                 success: true,
-                efficiency: Number((output.stats.efficiency * 100).toFixed(2)),
+                efficiency: efficiency(output.stats.originalSize, output.stats.minifiedSize),
                 warnings: output.warnings,
-                erros: output.errors,
+                errors: output.errors,
                 output: {
                     code: output.styles,
                     map: output.sourceMap

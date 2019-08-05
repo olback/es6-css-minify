@@ -78,7 +78,22 @@
                 "es6-css-minify.hideButton": {
                     "type": "boolean",
                     "description": "Hide the 'Minify' button in the status bar if it's a file you can't minify.",
-                    "default": false
+                    "default": true
+                },
+                "es6-css-minify.showLogOnWarning": {
+                    "type": "boolean",
+                    "description": "Show log if minification is successful but has warnings.",
+                    "default": true
+                },
+                "es6-css-minify.showLogOnError": {
+                    "type": "boolean",
+                    "description": "When minification fails, show log with warnings and errors.",
+                    "default": true
+                },
+                "es6-css-minify.onSaveDelay": {
+                    "type": "number",
+                    "description": "The amount of milliseconds to wait before minifying after a save. This might be needed on slower systems. Setting this to 0 disables the timeout. You should never have to set this to over 50.",
+                    "default": 0
                 },
                 "es6-css-minify.uglifyConfigFile": {
                     "type": "string",
@@ -153,6 +168,11 @@
                 "es6-css-minify.enableAutoprefixer": {
                     "type": "boolean",
                     "description": "Enable autoprefixer?",
+                    "default": false
+                },
+                "es6-css-minify.enableAutoprefixerSelection": {
+                    "type": "boolean",
+                    "description": "Enable autoprefixer for selection minification?",
                     "default": false
                 },
                 "es6-css-minify.autoprefixer": {
