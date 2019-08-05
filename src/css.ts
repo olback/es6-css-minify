@@ -1,5 +1,5 @@
 import * as cleancss from 'clean-css';
-import autoprefixer = require('autoprefixer');
+import * as autoprefixer from 'autoprefixer';
 import { efficiency } from './utils';
 
 export class CssMinifier {

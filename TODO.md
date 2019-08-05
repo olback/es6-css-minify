@@ -1,3 +1,0 @@
-# Todo:
-- [ ] Tests
-- [ ] Webpack

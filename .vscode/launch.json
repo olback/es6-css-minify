@@ -11,11 +11,12 @@
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
+                "--disable-extensions",
                 "${workspaceRoot}/src/test/workspace",
                 "--extensionDevelopmentPath=${workspaceRoot}"
             ],
             "outFiles": [
-                "${workspaceFolder}/out/**/*.js"
+                "${workspaceFolder}/dist/**/*.js"
             ],
             "preLaunchTask": "npm: watch"
         },

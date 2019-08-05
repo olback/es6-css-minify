@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "outDir": "dist",
+        "outDir": "out",
         "lib": [
             "es6"
         ],
@@ -16,8 +16,15 @@
         "noUnusedParameters": true,  /* Report errors on unused parameters. */
         "noImplicitThis": true
     },
+    "include": [
+        "src/**/*.ts",
+        // "node_modules/terser/tools/*.ts",
+        "node_modules/vscode/vscode.d.ts",
+        "node_modules/vscode/lib/*", "node_modules/terser/terser.d.ts",
+    ],
     "exclude": [
-        "node_modules",
-        ".vscode-test"
+        // "node_modules",
+        ".vscode-test",
+        "src/test"
     ]
 }

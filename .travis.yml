@@ -1,5 +1,7 @@
 sudo: false
 
+dist: bionic
+
 os:
   - osx
   - linux
