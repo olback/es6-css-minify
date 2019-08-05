@@ -122,12 +122,12 @@ class Config {
 
         // RegEx
         // This should no longer be needed since terser accepts strings as well as RegExp. Issue #57
-        // if (
-        //     typeof this.js.mangle === 'object' && this.js.mangle.properties &&
-        //     typeof this.js.mangle.properties === 'object' && this.js.mangle.properties.regex
-        // ) {
-        //     this.js.mangle.properties.regex = new RegExp(this.js.mangle.properties.regex);
-        // }
+        if (
+            typeof this.js.mangle === 'object' && this.js.mangle.properties &&
+            typeof this.js.mangle.properties === 'object' && this.js.mangle.properties.regex
+        ) {
+            this.js.mangle.properties.regex = new RegExp(this.js.mangle.properties.regex);
+        }
 
     }
 
