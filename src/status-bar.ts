@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { EXT_ID } from './utils';
 
-export class StatusBar {
+class StatusBar {
 
     private _button: vscode.StatusBarItem;
 
@@ -24,8 +24,14 @@ export class StatusBar {
 
     }
 
-    showMessage(str: string, timeout = 3) {
-        vscode.window.setStatusBarMessage(`$(graph) ${str}`, timeout);
+    showStats(eff: number, timeout = 5000) {
+            vscode.window.setStatusBarMessage(`$(graph) Output is ${Math.abs(eff)}% ${eff < 0 ? 'bigger' : 'smaller' }.`, timeout);
+    }
+
+    showMessage(str: string, timeout = 5000) {
+        vscode.window.setStatusBarMessage(str, timeout);
     }
 
 }
+
+export const statusBar = new StatusBar();
