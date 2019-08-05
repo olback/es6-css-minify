@@ -7,9 +7,7 @@ export enum DataFormat {
 
 export class File {
 
-    constructor(private path: string) {
-
-    }
+    constructor(private path: string) { }
 
     exists(): boolean {
 
@@ -17,7 +15,7 @@ export class File {
 
     }
 
-    write(data: string) {
+    write(data: string): void {
 
         return fs.writeFileSync(this.path, data, { encoding: 'utf8' });
 
@@ -52,13 +50,6 @@ export class File {
             return null;
 
         }
-
-    }
-
-    // TODO: Is this used?
-    stats(): fs.Stats {
-
-        return fs.statSync(this.path);
 
     }
 

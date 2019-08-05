@@ -1,13 +1,15 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { Config } from './config';
+import { config } from './config';
 import { output } from './output';
 import { CssMinifier } from './css';
 import { EsMinifier } from './js';
 import { JsonMinifier } from './json';
 import { statusBar } from './status-bar';
 
-export function minifySelection(editor: vscode.TextEditor, config: Config) {
+export function minifySelection(editor: vscode.TextEditor): void {
+
+    console.log(config);
 
     const text = editor.document.getText(editor.selection);
 
@@ -41,7 +43,7 @@ export function minifySelection(editor: vscode.TextEditor, config: Config) {
             case 'javascript': {
                 const minifier = new EsMinifier(config.js);
                 const fileName = path.basename(editor.document.fileName);
-                const res = minifier.minify(text, fileName);
+                const res = minifier.minify(text, null, config.jsMapSource);
                 output.printMinifyResult(`${fileName} (selection)`, res);
                 if (res.success) {
                     editor.insertSnippet(new vscode.SnippetString(res.output.code));

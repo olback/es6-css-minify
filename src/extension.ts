@@ -1,19 +1,16 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
-import { Config } from './config';
+import { config, reloadConfig } from './config';
 import { statusBar } from './status-bar';
-import { EXT_ID, SUPPORTED_FILES } from './utils';
+import { EXT_ID, SUPPORTED_FILES, isMinified, getOutPath } from './utils';
 import { output } from './output';
 import { File } from './fs';
 import { minifyDocument } from './minify-document';
 import { minifySelection } from './minify-selection';
 
-let config = new Config(false);
-
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext): void {
 
     // Load config
-    config = new Config(true);
+    reloadConfig(true);
 
 
     // Show minify button
@@ -23,14 +20,16 @@ export function activate(context: vscode.ExtensionContext) {
     // Commands
     context.subscriptions.push(
 
+        // Reload config.
         vscode.commands.registerCommand(`${EXT_ID}.loadConfig`, () => {
 
-            config = new Config();
+            reloadConfig(true);
             vscode.window.showInformationMessage('Minify configuration reloaded.');
 
         }),
 
 
+        // Minify file.
         vscode.commands.registerCommand(`${EXT_ID}.minify`, () => {
 
             const editor = vscode.window.activeTextEditor;
@@ -45,11 +44,12 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
 
-            minifyDocument(editor.document, config);
+            minifyDocument(editor.document);
 
         }),
 
 
+        // Minify selection.
         vscode.commands.registerCommand(`${EXT_ID}.minifySelection`, () => {
 
             const editor = vscode.window.activeTextEditor;
@@ -59,35 +59,36 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
 
-            minifySelection(editor, config);
+            minifySelection(editor);
 
         })
 
     );
 
-    // TODO: Minify on save
-    // vscode.workspace.onDidSaveTextDocument(doc => {
 
-    //     if (config.minifyOnSave === false || config.minifyOnSave === 'no' || !SUPPORTED_FILES.includes(doc.languageId)) {
-    //         return;
-    //     }
+    // Minify on save.
+    vscode.workspace.onDidSaveTextDocument(doc => {
 
-    //     if (config.minifyOnSave === 'exists') {
-    //         if (!new File().exists()) {
-    //             return;
-    //         }
-    //     }
+        if (config.minifyOnSave === false || config.minifyOnSave === 'no' || !SUPPORTED_FILES.includes(doc.languageId)) {
+            return;
+        }
 
-    //     // This is a hack to get arround bad/old hardware.
-    //     if (config.onSaveDelay) {
-    //         setTimeout(() => {
-    //             minifyDocument(doc, config);
-    //         }, config.onSaveDelay);
-    //     } else {
-    //         minifyDocument(doc, config);
-    //     }
+        if (config.minifyOnSave === 'exists') {
+            if (!new File(getOutPath(doc)).exists()) {
+                return;
+            }
+        }
 
-    // });
+        // This is a hack to get arround bad/old hardware.
+        if (config.onSaveDelay) {
+            setTimeout(() => {
+                minifyDocument(doc);
+            }, config.onSaveDelay);
+        } else {
+            minifyDocument(doc);
+        }
+
+    });
 
 
     // Hide the minify button unless the active document is a non-minified JS/CSS file.
@@ -99,7 +100,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         const doc = vscode.window.activeTextEditor.document;
 
-        if (SUPPORTED_FILES.includes(doc.languageId) && !path.basename(doc.fileName).includes('.min.')) {
+        if (SUPPORTED_FILES.includes(doc.languageId) && !isMinified(doc)) {
             statusBar.showButton();
         } else {
             statusBar.hideButton();
@@ -111,7 +112,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Reload minify config if the vscode config is modified
     vscode.workspace.onDidChangeConfiguration(() => {
 
-        config = new Config(true);
+        reloadConfig(true);
         vscode.window.showInformationMessage('Minify configuration reloaded.');
 
     });
@@ -121,6 +122,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 }
 
-export function deactivate() {
+export function deactivate(): void {
     output.dispose();
 }

@@ -8,23 +8,23 @@ class OutputChannel {
         this.output = vscode.window.createOutputChannel(name);
     }
 
-    write(str: string) {
+    write(str: string): void {
         this.output.append(str);
     }
 
-    writeln(str: string) {
+    writeln(str: string): void {
         this.output.appendLine(str);
     }
 
-    show(preserveFocus = true) {
+    show(preserveFocus = true): void {
         this.output.show(preserveFocus);
     }
 
-    hide() {
+    hide(): void {
         this.output.hide();
     }
 
-    clear() {
+    clear(): void {
         this.output.clear();
     }
 
@@ -32,7 +32,7 @@ class OutputChannel {
         return this.output.name;
     }
 
-    printMinifyResult(file: string, minOutput: MinifyOutput) {
+    printMinifyResult(file: string, minOutput: MinifyOutput): void {
 
         this.write(`[${file}]:`);
 
@@ -67,7 +67,7 @@ class OutputChannel {
 
     }
 
-    dispose() {
+    dispose(): void {
         this.output.dispose();
     }
 

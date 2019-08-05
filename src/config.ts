@@ -6,7 +6,7 @@ import * as path from 'path';
 import { EXT_ID } from './utils';
 import { File, DataFormat } from './fs';
 
-export class Config {
+class Config {
 
     // General
     minifyOnSave: boolean | "yes" | "no" | "exists";
@@ -39,7 +39,7 @@ export class Config {
 
     constructor(external = true) {
 
-        const conf = JSON.parse(JSON.stringify(vscode.workspace.getConfiguration(EXT_ID)));
+        const conf: Config = JSON.parse(JSON.stringify(vscode.workspace.getConfiguration(EXT_ID)));
 
         // General
         this.minifyOnSave = conf.minifyOnSave;
@@ -114,6 +114,12 @@ export class Config {
 
         }
 
+        // Overwrite css.sourceMap with genCSSmap.
+        this.css.sourceMap = this.genCSSmap;
+
+        // Overwrite js.sourceMap with genJSmap.
+        this.js.sourceMap = this.genJSmap;
+
         // RegEx
         // This should no longer be needed since terser accepts strings as well as RegExp. Issue #57
         // if (
@@ -126,3 +132,9 @@ export class Config {
     }
 
 }
+
+export function reloadConfig(external: boolean): void {
+    config = new Config(external);
+}
+
+export let config = new Config(false);
