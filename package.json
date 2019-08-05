@@ -192,7 +192,7 @@
         "vscode:prepublish": "npm run compile",
         "compile": "node_modules/.bin/webpack --mode production",
         "watch": "node_modules/.bin/webpack --mode development --watch",
-        "pretest": "tsc -p ./tsconfig.test.json",
+        "pretest": "npm run compile && tsc -p ./tsconfig.test.json",
         "test": "node ./out/test/runTest.js",
         "lint": "tslint -p ./"
     },
