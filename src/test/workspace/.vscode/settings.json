@@ -1,5 +1,7 @@
 {
     "es6-css-minify.cssMinPath": "dist/css",
     "es6-css-minify.cssPostfix": "minified",
-    "es6-css-minify.enableAutoprefixer": true
+    "es6-css-minify.enableAutoprefixer": true,
+    "es6-css-minify.enableAutoprefixerSelection": true,
+    "es6-css-minify.hideButton": true
 }
