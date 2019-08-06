@@ -192,7 +192,8 @@
         "vscode:prepublish": "npm run compile",
         "compile": "node_modules/.bin/webpack --mode production",
         "watch": "node_modules/.bin/webpack --mode development --watch",
-        "pretest": "npm run compile && tsc -p ./tsconfig.test.json",
+        "pretest": "npm run compile && npm run ts:compile",
+        "ts:compile": "tsc -p ./",
         "test": "node ./out/test/runTest.js",
         "lint": "tslint -p ./"
     },
@@ -203,6 +204,7 @@
         "@types/mocha": "^5.2.6",
         "@types/node": "^10.12.21",
         "@types/vscode": "^1.18.0",
+        "@types/webpack": "^4.32.1",
         "autoprefixer": "^9.6.1",
         "clean-css": "^4.2.1",
         "cross-env": "^5.2.0",

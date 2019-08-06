@@ -3,7 +3,6 @@ import * as cleancss from 'clean-css';
 import * as autoprefixer from 'autoprefixer';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { EXT_ID } from './utils';
 import { File, DataFormat } from './fs';
 
 class Config {
@@ -39,7 +38,7 @@ class Config {
 
     constructor(external = true) {
 
-        const conf: Config = JSON.parse(JSON.stringify(vscode.workspace.getConfiguration(EXT_ID)));
+        const conf: Config = JSON.parse(JSON.stringify(vscode.workspace.getConfiguration('es6-css-minify')));
 
         // General
         this.minifyOnSave = conf.minifyOnSave;
@@ -52,9 +51,9 @@ class Config {
         this.uglifyConfigFile = conf.uglifyConfigFile;
         this.genJSmap = conf.genJSmap;
         this.jsMapSource = conf.jsMapSource;
-        this.jsMinPath =conf.jsMinPath;
-        this.jsPostfix =conf.jsPostfix;
-        this.js =conf.js;
+        this.jsMinPath = conf.jsMinPath;
+        this.jsPostfix = conf.jsPostfix;
+        this.js = conf.js;
 
         // Clean-css
         this.cleancssConfigFile = conf.cleancssConfigFile;

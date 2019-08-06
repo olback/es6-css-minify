@@ -1,18 +1,29 @@
 import * as assert from 'assert';
-import { before } from 'mocha';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
+import { EXT_ID } from '../../utils';
 // import * as myExtension from '../extension';
 
 suite('Extension Test Suite', () => {
-    before(() => {
-        vscode.window.showInformationMessage('Start all tests.');
+
+    test('Extension loaded by VS Code', () => {
+
+        assert.ok(vscode.extensions.getExtension(`olback.${EXT_ID}`));
+
     });
 
-    test('Sample test', () => {
-        assert.equal(-1, [1, 2, 3].indexOf(5));
-        assert.equal(-1, [1, 2, 3].indexOf(0));
+    test('All commands registerd', async () => {
+
+        const allRegisterdCommands = await vscode.commands.getCommands(true);
+        const foundRegisterdExtCommands = allRegisterdCommands.filter(v => v.includes(EXT_ID));
+        // @ts-ignore
+        const commandsFromPackageJson = vscode.extensions.getExtension(`olback.${EXT_ID}`).packageJSON.contributes.commands.map((v: any) => v.command);
+
+        assert.deepEqual(
+            foundRegisterdExtCommands,
+            commandsFromPackageJson,
+            'Registerd commands does not match package.json'
+        );
+
     });
+
 });

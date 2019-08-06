@@ -9,6 +9,8 @@
 
 const path = require('path');
 
+const tsconfig = 'tsconfig.webpack.json';
+
 /**@type {import('webpack').Configuration}*/
 const config = {
     target: 'node', // vscode extensions run in a Node.js-context 📖 -> https://webpack.js.org/configuration/node/
@@ -31,7 +33,9 @@ const config = {
         new (require('fork-ts-checker-webpack-plugin'))({
             async: false,
             useTypescriptIncrementalApi: true,
-            memoryLimit: 4096
+            memoryLimit: 4096,
+            checkSyntacticErrors: true,
+            tsconfig: tsconfig
         })
     ],
     module: {
@@ -42,6 +46,7 @@ const config = {
                 loader: 'ts-loader',
                 options: {
                     transpileOnly: true,
+                    configFile: tsconfig,
                     compilerOptions: {
                         "module": "es6" // override `tsconfig.json` so that TypeScript emits native JavaScript modules.
                     }
