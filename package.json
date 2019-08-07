@@ -194,7 +194,7 @@
         "watch": "node_modules/.bin/webpack --mode development --watch",
         "pretest": "npm run compile && npm run ts:compile",
         "ts:compile": "tsc -p ./",
-        "test": "node ./out/test/runTest.js",
+        "test": "node --max_old_space_size=4096 ./out/test/runTest.js",
         "lint": "tslint -p ./"
     },
     "devDependencies": {
