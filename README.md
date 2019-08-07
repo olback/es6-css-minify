@@ -10,7 +10,7 @@ If you found this extension useful and want to support further development, plea
 | OS | Status |
 |----| ------ |
 | Linux & MacOS | [![Build Status](https://travis-ci.com/olback/es6-css-minify.svg?branch=3.0)](https://travis-ci.com/olback/es6-css-minify) |
-| Windows | [![Build status](https://ci.appveyor.com/api/projects/status/9xa8j6tq3vstixj2/branch/2.0?svg=true)](https://ci.appveyor.com/project/olback/es6-css-minify/branch/2.0) |
+| Windows | [![Build status](https://ci.appveyor.com/api/projects/status/9xa8j6tq3vstixj2/branch/3.0?svg=true)](https://ci.appveyor.com/project/olback/es6-css-minify/branch/3.0) |
 
 A simple Javascript & CSS minifier.  
 A `Minify` button should appear in the status bar when opening a `.js` or a `.css` file. You can also run `Minify: Document` by clicking `F1` or `CTRL+SHIFT+P`.
