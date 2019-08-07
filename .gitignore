@@ -12,3 +12,4 @@ node_modules
 *.minified.*
 *.minified.*.map
 .ignoreme
+report.*.*.*.*.*.json

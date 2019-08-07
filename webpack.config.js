@@ -33,7 +33,7 @@ const config = {
         new (require('fork-ts-checker-webpack-plugin'))({
             async: false,
             useTypescriptIncrementalApi: true,
-            memoryLimit: 4096,
+            memoryLimit: 2048,
             checkSyntacticErrors: true,
             tsconfig: tsconfig
         })
