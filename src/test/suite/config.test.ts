@@ -10,7 +10,7 @@ interface IndexSignature {
     [key: string]: any;
 }
 
-suite('Conifg class tests', () => {
+suite('Conifg class', () => {
 
     test('Config matches package.json', () => {
 
@@ -25,7 +25,7 @@ suite('Conifg class tests', () => {
 
         // Make sure all settings in package.json are included in the class.
         for (const p in packageConfigStructure) {
-            assert.equal(
+            assert.strictEqual(
                 typeof (config as IndexSignature)[p],
                 packageConfigStructure[p],
                 `Found property "${p}" in package.json but it does not exist in class`
@@ -34,7 +34,7 @@ suite('Conifg class tests', () => {
 
         // Make sure there are no extra properties in the class.
         for (const p in (config as IndexSignature)) {
-            assert.equal(
+            assert.strictEqual(
                 typeof (config as IndexSignature)[p],
                 packageConfigStructure[p],
                 `Found property "${p}" in class but it does not exist in package.json`
@@ -52,7 +52,7 @@ suite('Conifg class tests', () => {
         delete uglifyrc.sourceMap;
         delete config.js.sourceMap;
 
-        assert.deepEqual(uglifyrc, config.js);
+        assert.deepStrictEqual(uglifyrc, config.js);
 
     });
 
@@ -66,7 +66,39 @@ suite('Conifg class tests', () => {
         delete cleancssrc.sourceMap;
         delete config.css.sourceMap;
 
-        assert.deepEqual(cleancssrc, config.css);
+        assert.deepStrictEqual(cleancssrc, config.css);
+
+    });
+
+    test('config.js defaults is correct', () => {
+
+        reloadConfig(false);
+
+        const defaultJs = {
+            mangle: false,
+            compress: {
+                unused: false
+            },
+            output: {
+                quote_style: 0
+            },
+            sourceMap: true
+        };
+
+        assert.deepStrictEqual(config.js, defaultJs);
+
+    });
+
+    test('config.css defaults is correct', () => {
+
+        reloadConfig(false);
+
+        const defaultCss = {
+            rebase: false,
+            sourceMap: true
+        };
+
+        assert.deepStrictEqual(config.css, defaultCss);
 
     });
 

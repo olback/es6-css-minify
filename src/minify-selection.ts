@@ -9,8 +9,6 @@ import { statusBar } from './status-bar';
 
 export function minifySelection(editor: vscode.TextEditor): void {
 
-    console.log(config);
-
     const text = editor.document.getText(editor.selection);
 
         if (!text.trim()) {

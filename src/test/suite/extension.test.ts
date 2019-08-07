@@ -1,9 +1,8 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { EXT_ID } from '../../utils';
-// import * as myExtension from '../extension';
 
-suite('Extension Test Suite', () => {
+suite('Extension', () => {
 
     test('Extension loaded by VS Code', () => {
 
@@ -15,10 +14,9 @@ suite('Extension Test Suite', () => {
 
         const allRegisterdCommands = await vscode.commands.getCommands(true);
         const foundRegisterdExtCommands = allRegisterdCommands.filter(v => v.includes(EXT_ID));
-        // @ts-ignore
-        const commandsFromPackageJson = vscode.extensions.getExtension(`olback.${EXT_ID}`).packageJSON.contributes.commands.map((v: any) => v.command);
+        const commandsFromPackageJson = (vscode.extensions.getExtension(`olback.${EXT_ID}`) as vscode.Extension<any>).packageJSON.contributes.commands.map((v: any) => v.command);
 
-        assert.deepEqual(
+        assert.deepStrictEqual(
             foundRegisterdExtCommands,
             commandsFromPackageJson,
             'Registerd commands does not match package.json'

@@ -61,7 +61,6 @@ export function minifyDocument(doc: vscode.TextDocument): void {
             const res = minifier.minify(text, baseName, config.jsMapSource);
             if (res.success) {
                 try {
-                    console.log(res);
                     const outPath = getOutPath(doc);
                     if (config.genJSmap) {
                         new File(`${outPath}.map`).write(res.output.map);
