@@ -6,6 +6,7 @@
 [![GitHub package version](https://img.shields.io/github/package-json/v/olback/es6-css-minify/3.0.svg?style=flat&logo=github&label=Github%20(This%20branch))](https://github.com/olback/es6-css-minify/tree/3.0)
 
 If you found this extension useful and want to support further development, please consider [donating](https://www.paypal.me/olback).
+
 | OS | Status |
 |----| ------ |
 | Linux & MacOS | [![Build Status](https://travis-ci.com/olback/es6-css-minify.svg?branch=3.0)](https://travis-ci.com/olback/es6-css-minify) |
