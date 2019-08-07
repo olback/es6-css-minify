@@ -1,7 +1,9 @@
 import { File, DataFormat } from '../../fs';
 import * as assert from 'assert';
 import * as fs from 'fs';
+import * as path from 'path';
 import { EXT_ID } from '../../utils';
+import { EXT_ROOT } from './test_utils';
 
 suite('File class', () => {
 
@@ -9,8 +11,9 @@ suite('File class', () => {
 
         assert.doesNotThrow(() => {
 
+            const packagePath = path.join(EXT_ROOT, 'package.json');
             // tslint:disable-next-line:no-unused-expression
-            new File('package.json').read();
+            new File(packagePath).read();
 
         });
 
@@ -18,7 +21,8 @@ suite('File class', () => {
 
     test('Read file', () => {
 
-        const data = new File('package.json').read();
+        const packagePath = path.join(EXT_ROOT, 'package.json');
+        const data = new File(packagePath).read();
 
         assert.strictEqual(typeof data, 'string');
         assert.ok(data.length > 0);
@@ -27,7 +31,8 @@ suite('File class', () => {
 
     test('Parse file', () => {
 
-        const data = new File('package.json').parse(DataFormat.json);
+        const packagePath = path.join(EXT_ROOT, 'package.json');
+        const data = new File(packagePath).parse(DataFormat.json);
 
         assert.ok(data);
         assert.strictEqual(typeof data, 'object');
@@ -37,7 +42,8 @@ suite('File class', () => {
 
     test('File exists', () => {
 
-        const exists = new File('package.json').exists();
+        const packagePath = path.join(EXT_ROOT, 'package.json');
+        const exists = new File(packagePath).exists();
 
         assert.equal(exists, true);
 
@@ -53,7 +59,7 @@ suite('File class', () => {
 
     test('Write file', () => {
 
-        const filePath = '.ignoreme';
+        const filePath = path.join(EXT_ROOT, '.ignoreme');
         const data ='this is a test';
         const file = new File(filePath);
         file.write(data);

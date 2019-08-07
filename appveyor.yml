@@ -15,8 +15,8 @@ test_script:
   - npm test
 
 # Don't actually build.
-build: false
+build: off
 
-branches:
-  only:
-  - "3.0"
+# branches:
+#   only:
+#   - "3.0"
