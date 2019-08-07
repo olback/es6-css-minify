@@ -190,7 +190,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "node_modules/.bin/webpack --mode production",
+        "compile": "node --max_old_space_size=4096 node_modules/.bin/webpack --mode production",
         "watch": "node_modules/.bin/webpack --mode development --watch",
         "pretest": "npm run compile && npm run ts:compile",
         "ts:compile": "tsc -p ./",
