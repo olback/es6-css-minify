@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS. Supports minify on save, minify selection & custom configurations!",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -189,7 +189,7 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
+        "vscode:prepublish": "npm test && npm run compile",
         "compile": "node --max-old-space-size=1024 node_modules/webpack/bin/webpack --mode production",
         "watch": "node node_modules/webpack/bin/webpack --mode development --watch",
         "pretest": "npm run compile && npm run ts:compile",

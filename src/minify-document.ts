@@ -36,7 +36,7 @@ export function minifyDocument(doc: vscode.TextDocument): void {
                         const map = JSON.parse(res.output.map);
                         map.sources = [config.cssMapSource ? path.join(config.cssMapSource, baseName) : baseName];
                         new File(`${outPath}.map`).write(JSON.stringify(map, null, 4));
-                        res.output.code += `\n/*# sourceMappingURL=${baseName}.map */\n`;
+                        res.output.code += `\n/*# sourceMappingURL=${path.basename(outPath)}.map */\n`;
                     }
                     new File(outPath).write(res.output.code);
                     statusBar.showStats(res.efficiency);
@@ -57,11 +57,11 @@ export function minifyDocument(doc: vscode.TextDocument): void {
         }
 
         case 'javascript': {
+            const outPath = getOutPath(doc);
             const minifier = new EsMinifier(config.js);
-            const res = minifier.minify(text, baseName, config.jsMapSource);
+            const res = minifier.minify(text, path.basename(outPath), config.jsMapSource);
             if (res.success) {
                 try {
-                    const outPath = getOutPath(doc);
                     if (config.genJSmap) {
                         new File(`${outPath}.map`).write(res.output.map);
                     }
