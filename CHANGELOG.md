@@ -1,4 +1,7 @@
-# 3.0.0
+# 3.0.1
+* Issue #76 fixed. (Thanks @EvlBlackmask)
+
+## 3.0.0
 * Complete re-write. The extension is now divided into multiple files. This makes it easier to maintain.
 * Bump dependency versions. (Closes #74)
 * You can now see warnings and errors directly from clean-css and terser.
