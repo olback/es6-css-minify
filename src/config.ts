@@ -8,8 +8,8 @@ import { File, DataFormat } from './fs';
 class Config {
 
     // General
-    minifyOnSave: boolean | "yes" | "no" | "exists";
-    hideButton: boolean;
+    minifyOnSave: boolean | 'yes' | 'no' | 'exists';
+    hideButton: boolean | 'always' | 'never' | 'auto';
     showLogOnWarning: boolean;
     showLogOnError: boolean;
     onSaveDelay: number;

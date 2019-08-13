@@ -14,7 +14,9 @@ export function activate(context: vscode.ExtensionContext): void {
 
 
     // Show minify button
-    statusBar.showButton();
+    if (config.hideButton === 'never' || config.hideButton === false) {
+        statusBar.showButton();
+    }
 
 
     // Commands
@@ -24,6 +26,11 @@ export function activate(context: vscode.ExtensionContext): void {
         vscode.commands.registerCommand(`${EXT_ID}.loadConfig`, () => {
 
             reloadConfig(true);
+            if (config.hideButton === 'never') {
+                statusBar.showButton();
+            } else if (config.hideButton === 'always') {
+                statusBar.hideButton();
+            }
             vscode.window.showInformationMessage('Minify configuration reloaded.');
 
         }),
@@ -94,16 +101,13 @@ export function activate(context: vscode.ExtensionContext): void {
     // Hide the minify button unless the active document is a non-minified JS/CSS file.
     vscode.workspace.onDidOpenTextDocument(() => {
 
-        if (!vscode.window.activeTextEditor || config.hideButton === false) {
-            return;
-        }
-
-        const doc = vscode.window.activeTextEditor.document;
-
-        if (SUPPORTED_FILES.includes(doc.languageId) && !isMinified(doc)) {
-            statusBar.showButton();
-        } else {
-            statusBar.hideButton();
+        if (vscode.window.activeTextEditor && (config.hideButton === 'auto' || config.hideButton === true)) {
+            const doc = vscode.window.activeTextEditor.document;
+            if (SUPPORTED_FILES.includes(doc.languageId) && !isMinified(doc)) {
+                statusBar.showButton();
+            } else {
+                statusBar.hideButton();
+            }
         }
 
     });
@@ -113,6 +117,11 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidChangeConfiguration(() => {
 
         reloadConfig(true);
+        if (config.hideButton === 'never') {
+            statusBar.showButton();
+        } else if (config.hideButton === 'always') {
+            statusBar.hideButton();
+        }
         vscode.window.showInformationMessage('Minify configuration reloaded.');
 
     });
