@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS. Supports minify on save, minify selection & custom configurations!",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -76,9 +76,14 @@
                     ]
                 },
                 "es6-css-minify.hideButton": {
-                    "type": "boolean",
-                    "description": "Hide the 'Minify' button in the status bar if it's a file you can't minify.",
-                    "default": true
+                    "type": "string",
+                    "description": "Hide the minify button in the status bar.\n\"yes\": Always hidden\n\"no\": Always visible. Even when minification is not supported.\n\"auto\": Hide the button when minification is not available. This is not 100% reliable.",
+                    "default": "no",
+                    "enum": [
+                        "always",
+                        "never",
+                        "auto"
+                    ]
                 },
                 "es6-css-minify.showLogOnWarning": {
                     "type": "boolean",
