@@ -6,14 +6,14 @@ export class EsMinifier {
 
     constructor(private options: terser.MinifyOptions) { }
 
-    minify(input: string, fileName: string | null, jsMapSource: string): MinifyOutput {
+    minify(input: string, fileName: string | null, map: { outFileName: string, jsMapSource: string} | null): MinifyOutput {
 
         const local: terser.MinifyOptions = JSON.parse(JSON.stringify(this.options));
 
-        if (this.options.sourceMap && fileName !== null) {
+        if (this.options.sourceMap && fileName !== null && map !== null) {
             local.sourceMap = {
-                filename: jsMapSource ? path.join(jsMapSource, fileName) : fileName,
-                url: `${fileName}.map`
+                filename: map.jsMapSource ? path.join(map.jsMapSource, fileName) : fileName,
+                url: `${map.outFileName}.map`
             };
         }
 

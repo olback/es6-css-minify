@@ -41,7 +41,7 @@ export function minifySelection(editor: vscode.TextEditor): void {
             case 'javascript': {
                 const minifier = new EsMinifier(config.js);
                 const fileName = path.basename(editor.document.fileName);
-                const res = minifier.minify(text, null, config.jsMapSource);
+                const res = minifier.minify(text, null, null);
                 output.printMinifyResult(`${fileName} (selection)`, res);
                 if (res.success) {
                     editor.insertSnippet(new vscode.SnippetString(res.output.code));
