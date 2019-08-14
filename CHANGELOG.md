@@ -1,5 +1,5 @@
 # 3.0.2
-* Issue #77 fixed. (Thanks @CubeRanch)
+* Issue #78 fixed. (Thanks @CubeRanch)
 * Minify button is always visible by default. Button visibility can be set to either `"always"`, `"never"` or `"auto"`.
 
 ## 3.0.1
