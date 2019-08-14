@@ -59,7 +59,10 @@ export function minifyDocument(doc: vscode.TextDocument): void {
         case 'javascript': {
             const outPath = getOutPath(doc);
             const minifier = new EsMinifier(config.js);
-            const res = minifier.minify(text, path.basename(outPath), config.jsMapSource);
+            const res = minifier.minify(text, baseName, {
+                outFileName: path.basename(outPath),
+                jsMapSource: config.jsMapSource
+            });
             if (res.success) {
                 try {
                     if (config.genJSmap) {
