@@ -1,5 +1,6 @@
 # 3.1.1
 * Removed console.log.
+* Hopefully fixed issue #78 (Thanks @CubeRanch)
 
 ## 3.1.0
 * Fixed issue #84. (Thanks @0arra0)

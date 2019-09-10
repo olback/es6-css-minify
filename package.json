@@ -78,7 +78,7 @@
                 "es6-css-minify.hideButton": {
                     "type": "string",
                     "description": "Hide the minify button in the status bar.\n\"always\": Always hidden\n\"never\": Always visible. Even when minification is not supported.\n\"auto\": Hide the button when minification is not available. This is not 100% reliable.",
-                    "default": "no",
+                    "default": "never",
                     "enum": [
                         "always",
                         "never",
