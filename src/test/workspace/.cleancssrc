@@ -1,3 +1,6 @@
 {
-    "rebase": false
+    "rebase": false,
+    "inline": [
+        "all"
+    ]
 }

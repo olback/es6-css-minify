@@ -1,3 +1,8 @@
+/* Regular comment */
+/*! Important stuff! */
+
+@import 'footer.css';
+
 .example {
     display: grid;
     transition: all .5s;

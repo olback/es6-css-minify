@@ -28,7 +28,10 @@ export function minifyDocument(doc: vscode.TextDocument): void {
 
         case 'css': {
             const minifier = new CssMinifier(config.css, { use: config.enableAutoprefixer, options: config.autoprefixer });
-            const res = minifier.minify(text);
+            const res = minifier.minify({
+                file: doc.fileName,
+                data: text
+            });
             if (res.success) {
                 try {
                     const outPath = getOutPath(doc);
