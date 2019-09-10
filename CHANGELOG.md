@@ -1,5 +1,6 @@
 # 3.1.0
 * Fixed issue #84. (Thanks @0arra0)
+* Fixed issue #83. (Thanks @CubeRanch)
 
 ## 3.0.3
 * Fixed issue #81.

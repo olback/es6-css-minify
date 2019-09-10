@@ -114,15 +114,19 @@ export function activate(context: vscode.ExtensionContext): void {
 
 
     // Reload minify config if the vscode config is modified
-    vscode.workspace.onDidChangeConfiguration(() => {
+    vscode.workspace.onDidChangeConfiguration(e => {
 
-        reloadConfig(true);
-        if (config.hideButton === 'never') {
-            statusBar.showButton();
-        } else if (config.hideButton === 'always') {
-            statusBar.hideButton();
+        if (e.affectsConfiguration(EXT_ID)) {
+
+            reloadConfig(true);
+            if (config.hideButton === 'never') {
+                statusBar.showButton();
+            } else if (config.hideButton === 'always') {
+                statusBar.hideButton();
+            }
+            vscode.window.showInformationMessage('Minify configuration reloaded.');
+
         }
-        vscode.window.showInformationMessage('Minify configuration reloaded.');
 
     });
 

@@ -3,7 +3,7 @@
     "es6-css-minify.cssPostfix": "minified",
     "es6-css-minify.enableAutoprefixer": true,
     "es6-css-minify.enableAutoprefixerSelection": true,
-    "es6-css-minify.hideButton": "auto",
+    // "es6-css-minify.hideButton": "never",
     "es6-css-minify.minifyOnSave": "exists",
     "es6-css-minify.genCSSmap": true,
     "es6-css-minify.genJSmap": true,
