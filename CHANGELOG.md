@@ -1,4 +1,8 @@
-# 3.1.0
+# 3.1.1
+* Removed console.log.
+* Hopefully fixed issue #78 (Thanks @CubeRanch)
+
+## 3.1.0
 * Fixed issue #84. (Thanks @0arra0)
 * Fixed issue #83. (Thanks @CubeRanch)
 * Fixed error in package.json.

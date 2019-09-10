@@ -46,8 +46,6 @@ export class CssMinifier {
         // .minify(css);
         .minify(typeof _input === 'string' ? css : { [_input.file]: { styles: css } })
 
-        console.log(output);
-
         if (output.errors.length > 0) {
 
             return {
