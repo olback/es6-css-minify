@@ -1,4 +1,8 @@
-# 3.1.1
+# 3.2.0
+* Added language and auto-complete support for `.autoprefixerrc`, `.cleancssrc`, `.uglifyrc` and `.terserrc`.
+* Added `Minify: Export Configuration` command.
+
+## 3.1.1
 * Removed console.log.
 * Hopefully fixed issue #78 (Thanks @CubeRanch)
 
