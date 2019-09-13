@@ -70,12 +70,15 @@ export function activate(context: vscode.ExtensionContext): void {
 
         }),
 
+
+        // Export config for easy debug.
         vscode.commands.registerCommand(`${EXT_ID}.exportConfig`, () => {
-            // this doesn't work?
-            // vscode.workspace.openTextDocument({ language: 'json', content: JSON.stringify(config)});
-            output.writeln('[JS & CSS Minifier Configuration]');
-            output.writeln(`\t${JSON.stringify(config)}`);
-            output.show();
+
+            vscode.workspace.openTextDocument({ language: 'json', content: JSON.stringify(config, null, 4)})
+            .then(doc => {
+                vscode.window.showTextDocument(doc);
+            });
+
         })
 
     );
