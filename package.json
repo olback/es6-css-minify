@@ -38,6 +38,7 @@
         "onCommand:es6-css-minify.loadConfig",
         "onCommand:es6-css-minify.minify",
         "onCommand:es6-css-minify.minifySelection",
+        "onCommand:es6-css-minify.exportConfig",
         "onLanguage:css",
         "onLanguage:javascript",
         "onLanguage:json",
@@ -47,6 +48,40 @@
     ],
     "main": "./dist/extension",
     "contributes": {
+        "languages": [
+            {
+                "id": "json",
+                "aliases": [
+                    "json",
+                    "Json",
+                    "JSON"
+                ],
+                "extensions": [
+                    ".autoprefixerrc",
+                    ".cleancssrc",
+                    ".uglifyrc",
+                    ".terserrc"
+                ]
+            }
+        ],
+        "jsonValidation": [
+            {
+                "fileMatch": ".autoprefixerrc",
+                "url": "./schemas/autoprefixerrc.schema.json"
+            },
+            {
+                "fileMatch": ".cleancssrc",
+                "url": "./schemas/cleancssrc.schema.json"
+            },
+            {
+                "fileMatch": ".uglifyrc",
+                "url": "./schemas/terserrc.schema.json"
+            },
+            {
+                "fileMatch": ".terserrc",
+                "url": "./schemas/terserrc.schema.json"
+            }
+        ],
         "commands": [
             {
                 "command": "es6-css-minify.loadConfig",
