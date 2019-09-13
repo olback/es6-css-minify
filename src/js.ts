@@ -23,7 +23,7 @@ export class EsMinifier {
 
             return {
                 success: false,
-                warnings: [],
+                warnings: output.warnings || [],
                 errors: [output.error.message]
             };
 
