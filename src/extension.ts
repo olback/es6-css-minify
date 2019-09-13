@@ -68,6 +68,14 @@ export function activate(context: vscode.ExtensionContext): void {
 
             minifySelection(editor);
 
+        }),
+
+        vscode.commands.registerCommand(`${EXT_ID}.exportConfig`, () => {
+            // this doesn't work?
+            // vscode.workspace.openTextDocument({ language: 'json', content: JSON.stringify(config)});
+            output.writeln('[JS & CSS Minifier Configuration]');
+            output.writeln(`\t${JSON.stringify(config)}`);
+            output.show();
         })
 
     );

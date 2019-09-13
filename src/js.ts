@@ -38,7 +38,8 @@ export class EsMinifier {
                 errors: [],
                 output: {
                     code: output.code ? output.code : '',
-                    map: output.map ? output.map : ''
+                    // map: output.map ? output.map : ''
+                    map: typeof output.map === 'string' ? output.map : typeof output.map === 'object' ? JSON.stringify(output.map) : ''
                 }
             };
 
@@ -51,7 +52,7 @@ export class EsMinifier {
                 errors: [],
                 output: {
                     code: output.code,
-                    map: output.map ? output.map : ''
+                    map: typeof output.map === 'string' ? output.map : typeof output.map === 'object' ? JSON.stringify(output.map) : ''
                 }
             };
 
