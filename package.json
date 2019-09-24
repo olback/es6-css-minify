@@ -230,6 +230,14 @@
                     "default": ".autoprefixerrc"
                 }
             }
+        },
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "es6-css-minify.minify",
+                    "group": "es6-css-minify"
+                }
+            ]
         }
     },
     "scripts": {
