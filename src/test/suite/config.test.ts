@@ -25,20 +25,46 @@ suite('Conifg class', () => {
 
         // Make sure all settings in package.json are included in the class.
         for (const p in packageConfigStructure) {
-            assert.strictEqual(
-                typeof (config as IndexSignature)[p],
-                packageConfigStructure[p],
-                `Found property "${p}" in package.json but it does not exist in class`
-            );
+
+            const actual = typeof (config as IndexSignature)[p];
+            const expected = packageConfigStructure[p];
+            const enumArr: any[] | undefined = ext.packageJSON.contributes.configuration.properties[`es6-css-minify.${p}`].enum;
+            // const defaultValue = ext.packageJSON.contributes.configuration.properties[`es6-css-minify.${p}`].default;
+
+            console.log(`${p}: enum:${Array.isArray(enumArr)} actual:${actual} expected:${expected} typeof-expected:${typeof expected}`);
+
+            if (expected === undefined && Array.isArray(enumArr)) {
+
+                assert.strictEqual(enumArr.includes((config as IndexSignature)[p]), true, `${actual} not found in enum`);
+
+            } else {
+
+                assert.strictEqual(
+                    actual,
+                    expected,
+                    `Found property "${p}" with type ${expected} in package.json but it does not exist in class`
+                );
+
+            }
         }
 
         // Make sure there are no extra properties in the class.
         for (const p in (config as IndexSignature)) {
-            assert.strictEqual(
-                typeof (config as IndexSignature)[p],
-                packageConfigStructure[p],
-                `Found property "${p}" in class but it does not exist in package.json`
-            );
+
+            const actual = typeof (config as IndexSignature)[p];
+            const expected = packageConfigStructure[p];
+            const enumArr: any[] | undefined = ext.packageJSON.contributes.configuration.properties[`es6-css-minify.${p}`].enum;
+
+            if (expected !== undefined && !Array.isArray(enumArr)) {
+
+                assert.strictEqual(
+                    actual,
+                    expected,
+                    `Found property "${p}" with type ${expected} in class but it does not exist in package.json`
+                );
+
+            }
+
         }
 
     });
@@ -82,7 +108,8 @@ suite('Conifg class', () => {
             output: {
                 quote_style: 0
             },
-            sourceMap: true
+            sourceMap: true,
+            warnings: true
         };
 
         assert.deepStrictEqual(config.js, defaultJs);
