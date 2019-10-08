@@ -11,10 +11,15 @@ export class EsMinifier {
         const local: terser.MinifyOptions = JSON.parse(JSON.stringify(this.options));
 
         if (this.options.sourceMap && fileName !== null && map !== null) {
-            local.sourceMap = {
-                filename: map.jsMapSource ? path.join(map.jsMapSource, fileName) : fileName,
-                url: `${map.outFileName}.map`
-            };
+            if (this.options.sourceMap === true) {
+                local.sourceMap = {
+                    filename: map.jsMapSource ? path.join(map.jsMapSource, fileName) : fileName,
+                    url: `${map.outFileName}.map`
+                };
+            } else if (typeof local.sourceMap === 'object') {
+                local.sourceMap.filename = map.jsMapSource ? path.join(map.jsMapSource, fileName) : fileName;
+                local.sourceMap.url = `${map.outFileName}.map`;
+            }
         }
 
         const output = terser.minify(fileName ? { [fileName]: input } : input, local);
@@ -39,7 +44,7 @@ export class EsMinifier {
                 output: {
                     code: output.code ? output.code : '',
                     // map: output.map ? output.map : ''
-                    map: typeof output.map === 'string' ? output.map : typeof output.map === 'object' ? JSON.stringify(output.map) : ''
+                    map: typeof output.map === 'string' ? JSON.stringify(JSON.parse(output.map), null, 4) : typeof output.map === 'object' ? JSON.stringify(output.map, null, 4) : ''
                 }
             };
 
@@ -52,7 +57,8 @@ export class EsMinifier {
                 errors: [],
                 output: {
                     code: output.code,
-                    map: typeof output.map === 'string' ? output.map : typeof output.map === 'object' ? JSON.stringify(output.map) : ''
+                    // map: typeof output.map === 'string' ? output.map : typeof output.map === 'object' ? JSON.stringify(output.map) : ''
+                    map: typeof output.map === 'string' ? JSON.stringify(JSON.parse(output.map), null, 4) : typeof output.map === 'object' ? JSON.stringify(output.map, null, 4) : ''
                 }
             };
 

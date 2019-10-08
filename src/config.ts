@@ -16,7 +16,7 @@ class Config {
 
     // Terser
     uglifyConfigFile: string;
-    genJSmap: boolean;
+    genJSmap: boolean | null;
     jsMapSource: string;
     jsMinPath: string;
     jsPostfix: string;
@@ -24,7 +24,7 @@ class Config {
 
     // Clean-css
     cleancssConfigFile: string;
-    genCSSmap: boolean;
+    genCSSmap: boolean | null;
     cssMapSource: string;
     cssMinPath: string;
     cssPostfix: string;
@@ -114,10 +114,14 @@ class Config {
         }
 
         // Overwrite css.sourceMap with genCSSmap.
-        this.css.sourceMap = this.genCSSmap;
+        if (this.genCSSmap !== null) {
+            this.css.sourceMap = this.genCSSmap;
+        }
 
         // Overwrite js.sourceMap with genJSmap.
-        this.js.sourceMap = this.genJSmap;
+        if (this.genJSmap !== null) {
+            this.js.sourceMap = this.genJSmap;
+        }
 
         // RegEx
         // This should no longer be needed since terser accepts strings as well as RegExp. Issue #57

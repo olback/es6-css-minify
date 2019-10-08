@@ -5,5 +5,6 @@
     },
     "output": {
         "quote_style": 0
-    }
+    },
+    "warnings": true
 }

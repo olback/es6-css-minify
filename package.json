@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier (Minify)",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS. Supports minify on save, minify selection & custom configurations!",
-    "version": "3.2.0",
+    "version": "3.3.0",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -12,7 +12,7 @@
     "license": "SEE LICENSE IN LICENSE.md",
     "homepage": "https://github.com/olback/es6-css-minify",
     "bugs": "https://github.com/olback/es6-css-minify/issues",
-    "qna": "https://github.com/olback/es6-css-minify/issues",
+    "qna": "https://github.com/olback/es6-css-minify/issues/new?template=question.md",
     "repository": {
         "type": "git",
         "url": "https://github.com/olback/es6-css-minify.git"
@@ -38,6 +38,7 @@
         "onCommand:es6-css-minify.loadConfig",
         "onCommand:es6-css-minify.minify",
         "onCommand:es6-css-minify.minifySelection",
+        "onCommand:es6-css-minify.minifyExplorer",
         "onCommand:es6-css-minify.exportConfig",
         "onLanguage:css",
         "onLanguage:javascript",
@@ -96,6 +97,10 @@
                 "title": "Minify: Selection"
             },
             {
+                "command": "es6-css-minify.minifyExplorer",
+                "title": "Minify: File"
+            },
+            {
                 "command": "es6-css-minify.exportConfig",
                 "title": "Minify: Export Configuration"
             }
@@ -145,9 +150,13 @@
                     "default": ".uglifyrc"
                 },
                 "es6-css-minify.genJSmap": {
-                    "type": "boolean",
-                    "description": "Generate JavaScript sourcemap files.",
-                    "default": false
+                    "description": "Generate JavaScript sourcemap files. Setting this to null will give control to js.sourceMap.",
+                    "default": false,
+                    "enum": [
+                        true,
+                        false,
+                        null
+                    ]
                 },
                 "es6-css-minify.jsMapSource": {
                     "type": "string",
@@ -166,7 +175,7 @@
                 },
                 "es6-css-minify.js": {
                     "type": "object",
-                    "description": "Uglify-es settings. For more info visit https://www.npmjs.com/package/uglify-es#parse-options.",
+                    "description": "Terser/Uglify-es settings. For more info visit https://www.npmjs.com/package/terser#minify-options.",
                     "default": {
                         "mangle": false,
                         "compress": {
@@ -174,7 +183,8 @@
                         },
                         "output": {
                             "quote_style": 0
-                        }
+                        },
+                        "warnings": true
                     }
                 },
                 "es6-css-minify.cleancssConfigFile": {
@@ -183,9 +193,13 @@
                     "default": ".cleancssrc"
                 },
                 "es6-css-minify.genCSSmap": {
-                    "type": "boolean",
-                    "description": "Generate CSS sourcemap files.",
-                    "default": false
+                    "description": "Generate CSS sourcemap files. Setting this to null will give control to css.sourceMap.",
+                    "default": false,
+                    "enum": [
+                        true,
+                        false,
+                        null
+                    ]
                 },
                 "es6-css-minify.cssMapSource": {
                     "type": "string",
@@ -205,6 +219,13 @@
                 "es6-css-minify.css": {
                     "type": "object",
                     "description": "Clean-CSS settings. For more info visit https://www.npmjs.com/package/clean-css.",
+                    "properties": {
+                        "rebase": {
+                            "description": "",
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
                     "default": {
                         "rebase": false
                     }
@@ -235,7 +256,30 @@
             "editor/context": [
                 {
                     "command": "es6-css-minify.minify",
-                    "group": "es6-css-minify"
+                    "group": "es6-css-minify",
+                    "when": "editorLangId == javascript || editorLangId == css"
+                },
+                {
+                    "command": "es6-css-minify.minifySelection",
+                    "group": "es6-css-minify",
+                    "when": "editorLangId == javascript && editorHasSelection"
+                },
+                {
+                    "command": "es6-css-minify.minifySelection",
+                    "group": "es6-css-minify",
+                    "when": "editorLangId == css && editorHasSelection"
+                },
+                {
+                    "command": "es6-css-minify.minifySelection",
+                    "group": "es6-css-minify",
+                    "when": "editorLangId == json && editorHasSelection"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "es6-css-minify.minifyExplorer",
+                    "group": "es6-css-minify",
+                    "when": "resourceLangId == javascript || resourceLangId == css"
                 }
             ]
         }
