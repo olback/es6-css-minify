@@ -68,6 +68,17 @@ export function activate(context: vscode.ExtensionContext): void {
 
             minifySelection(editor);
 
+        }),
+
+
+        // Export config for easy debug.
+        vscode.commands.registerCommand(`${EXT_ID}.exportConfig`, () => {
+
+            vscode.workspace.openTextDocument({ language: 'json', content: JSON.stringify(config, null, 4)})
+            .then(doc => {
+                vscode.window.showTextDocument(doc);
+            });
+
         })
 
     );

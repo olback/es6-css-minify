@@ -1,6 +1,7 @@
 /* Regular comment */
 /*! Important stuff! */
 
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import 'footer.css';
 
 .example {
@@ -15,4 +16,3 @@
         background-image: url(../img/image@2x.png);
     }
 }
-

@@ -1,8 +1,8 @@
 {
     "name": "es6-css-minify",
-    "displayName": "JS & CSS Minifier",
+    "displayName": "JS & CSS Minifier (Minify)",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS. Supports minify on save, minify selection & custom configurations!",
-    "version": "3.1.1",
+    "version": "3.2.0",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -38,6 +38,7 @@
         "onCommand:es6-css-minify.loadConfig",
         "onCommand:es6-css-minify.minify",
         "onCommand:es6-css-minify.minifySelection",
+        "onCommand:es6-css-minify.exportConfig",
         "onLanguage:css",
         "onLanguage:javascript",
         "onLanguage:json",
@@ -47,6 +48,40 @@
     ],
     "main": "./dist/extension",
     "contributes": {
+        "languages": [
+            {
+                "id": "json",
+                "aliases": [
+                    "json",
+                    "Json",
+                    "JSON"
+                ],
+                "extensions": [
+                    ".autoprefixerrc",
+                    ".cleancssrc",
+                    ".uglifyrc",
+                    ".terserrc"
+                ]
+            }
+        ],
+        "jsonValidation": [
+            {
+                "fileMatch": ".autoprefixerrc",
+                "url": "./schemas/autoprefixerrc.schema.json"
+            },
+            {
+                "fileMatch": ".cleancssrc",
+                "url": "./schemas/cleancssrc.schema.json"
+            },
+            {
+                "fileMatch": ".uglifyrc",
+                "url": "./schemas/terserrc.schema.json"
+            },
+            {
+                "fileMatch": ".terserrc",
+                "url": "./schemas/terserrc.schema.json"
+            }
+        ],
         "commands": [
             {
                 "command": "es6-css-minify.loadConfig",
@@ -59,6 +94,10 @@
             {
                 "command": "es6-css-minify.minifySelection",
                 "title": "Minify: Selection"
+            },
+            {
+                "command": "es6-css-minify.exportConfig",
+                "title": "Minify: Export Configuration"
             }
         ],
         "configuration": {
@@ -191,6 +230,14 @@
                     "default": ".autoprefixerrc"
                 }
             }
+        },
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "es6-css-minify.minify",
+                    "group": "es6-css-minify"
+                }
+            ]
         }
     },
     "scripts": {
@@ -203,26 +250,26 @@
         "lint": "tslint -p ./"
     },
     "devDependencies": {
-        "@types/autoprefixer": "^9.5.0",
+        "@types/autoprefixer": "^9.6.1",
         "@types/clean-css": "^4.2.1",
         "@types/glob": "^7.1.1",
         "@types/mocha": "^5.2.6",
-        "@types/node": "^10.12.21",
-        "@types/vscode": "^1.18.0",
-        "@types/webpack": "^4.32.1",
+        "@types/node": "^10.14.18",
+        "@types/vscode": "^1.38.0",
+        "@types/webpack": "^4.39.1",
         "autoprefixer": "^9.6.1",
         "clean-css": "^4.2.1",
-        "cross-env": "^5.2.0",
+        "cross-env": "^5.2.1",
         "fork-ts-checker-webpack-plugin": "^1.5.0",
         "glob": "^7.1.4",
         "mocha": "^6.1.4",
-        "terser": "^4.1.3",
-        "ts-loader": "^6.0.4",
-        "tslint": "^5.12.1",
-        "typescript": "^3.3.1",
-        "vscode-test": "^1.1.0",
-        "webpack": "^4.39.1",
-        "webpack-cli": "^3.3.6"
+        "terser": "^4.3.1",
+        "ts-loader": "^6.1.0",
+        "tslint": "^5.20.0",
+        "typescript": "^3.6.3",
+        "vscode-test": "^1.2.0",
+        "webpack": "^4.39.3",
+        "webpack-cli": "^3.3.8"
     },
     "dependencies": {}
 }

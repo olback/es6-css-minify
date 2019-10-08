@@ -44,7 +44,7 @@ export class CssMinifier {
 
         const output = new cleancss(this.options as cleancss.OptionsOutput)
         // .minify(css);
-        .minify(typeof _input === 'string' ? css : { [_input.file]: { styles: css } })
+        .minify(typeof _input === 'string' ? css : { [_input.file]: { styles: css } }) // TODO: Use callback
 
         if (output.errors.length > 0) {
 
