@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier (Minify)",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS. Supports minify on save, minify selection & custom configurations!",
-    "version": "3.3.0",
+    "version": "3.3.1",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {
@@ -32,7 +32,7 @@
         "Other"
     ],
     "engines": {
-        "vscode": "^1.18.0"
+        "vscode": "^1.30.0"
     },
     "activationEvents": [
         "onCommand:es6-css-minify.loadConfig",
@@ -299,7 +299,7 @@
         "@types/glob": "^7.1.1",
         "@types/mocha": "^5.2.6",
         "@types/node": "^10.14.18",
-        "@types/vscode": "^1.38.0",
+        "@types/vscode": "^1.30.0",
         "@types/webpack": "^4.39.1",
         "autoprefixer": "^9.6.1",
         "clean-css": "^4.2.1",

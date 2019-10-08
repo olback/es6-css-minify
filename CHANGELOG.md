@@ -1,4 +1,7 @@
-# 3.3.0
+# 3.3.1
+* Bumb required VS Code version to `1.30.0`.
+
+## 3.3.0
 * Added ability to minify file from explorer (file list to the left). Fixes #90.
 * Fixed issue #92. (Thanks @Tim-Veestraeten)
 * Added file watcher for config files.
