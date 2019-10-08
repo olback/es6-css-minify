@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { config } from './config';
+import { config, reloadConfig } from './config';
 import * as path from 'path';
 
 export const EXT_ID = 'es6-css-minify';
@@ -71,3 +71,23 @@ export function getOutPath(doc: vscode.TextDocument): string {
     return outPath;
 
 }
+
+function isConfigFile(path: string): boolean {
+
+    return path.endsWith(config.uglifyConfigFile) || path.endsWith(config.cleancssConfigFile) || path.endsWith(config.autoprefixerConfigFile);
+
+}
+
+export function onConfigFileChange(uri: vscode.Uri) {
+
+    if (isConfigFile(uri.path)) {
+
+        reloadConfig(true);
+        vscode.window.showInformationMessage('Minify configuration reloaded.');
+
+    }
+
+}
+
+
+

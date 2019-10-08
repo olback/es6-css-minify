@@ -595,6 +595,11 @@
             "description": "Controls embedding sources inside a source map's sourcesContent field.",
             "type": "boolean",
             "default": false
+        },
+        "sourceMap": {
+            "description": "Controls whether an output source map is built.",
+            "type": "boolean",
+            "default": false
         }
     }
 }

@@ -35,7 +35,7 @@ export function minifyDocument(doc: vscode.TextDocument): void {
             if (res.success) {
                 try {
                     const outPath = getOutPath(doc);
-                    if (config.genCSSmap) {
+                    if (config.genCSSmap === true || config.genCSSmap === null) {
                         const map = JSON.parse(res.output.map);
                         map.sources = [config.cssMapSource ? path.join(config.cssMapSource, baseName) : baseName];
                         new File(`${outPath}.map`).write(JSON.stringify(map, null, 4));
@@ -68,7 +68,7 @@ export function minifyDocument(doc: vscode.TextDocument): void {
             });
             if (res.success) {
                 try {
-                    if (config.genJSmap) {
+                    if (config.genJSmap === true || config.genJSmap === null) {
                         new File(`${outPath}.map`).write(res.output.map);
                     }
                     new File(outPath).write(res.output.code);

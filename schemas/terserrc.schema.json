@@ -664,6 +664,37 @@
                     ]
                 }
             ]
+        },
+        "sourceMap": {
+            "description": "Source map options",
+            "default": false,
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "includeSources": {
+                            "description": "Inlude source in source map.",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "root": {
+                            "description": "",
+                            "type": "string"
+                        },
+                        "url": {
+                            "description": "",
+                            "type": "string",
+                            "enum": [
+                                "inline"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "boolean"
+                }
+            ]
+
         }
     }
 }
