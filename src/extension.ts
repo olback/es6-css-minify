@@ -61,21 +61,28 @@ export function activate(context: vscode.ExtensionContext): void {
 
             const uri = vscode.Uri.parse( file_path );
             
-            if ( uri ) {
-
-               if ( uri.scheme === 'file' && ( file.path.endsWith('.js' ) || file.path.endsWith('.css') ) {
-
-                   const doc = await vscode.workspace.openTextDocument( uri );
+            if ( !uri ) {
+            
+                vscode.window.showErrorMessage( 'Invalid file path' );
+        
+                return;
                 
-                   minifyDocument(doc);
+            }
+            
+            if ( uri.scheme === 'file' && ( file.path.endsWith('.js' ) || file.path.endsWith('.css') ) {
+
+               const doc = await vscode.workspace.openTextDocument( uri );
                 
+               if ( !doc ) {
+
+                   vscode.window.showErrorMessage( 'File not found in workspace' );
+        
+                   return;
+                   
                }
                
-            }
-            else {
-            
-               vscode.window.showErrorMessage( 'Invalid file path' );
-        
+               minifyDocument( doc );
+               
             }
                                         
         }),
