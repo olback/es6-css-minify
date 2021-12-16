@@ -72,6 +72,11 @@ export function activate(context: vscode.ExtensionContext): void {
                }
                
             }
+            else {
+            
+               vscode.window.showErrorMessage( 'Invalid file path' );
+        
+            }
                                         
         }),
 
