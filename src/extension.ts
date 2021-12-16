@@ -55,6 +55,25 @@ export function activate(context: vscode.ExtensionContext): void {
 
         }),
 
+        
+        // Minify file given a path ...
+        vscode.commands.registerCommand( `${EXT_ID}.minifyFile`, ( file_path: string ) => {
+
+            const uri = vscode.Uri.parse( file_path );
+            
+            if ( uri ) {
+
+               if ( uri.scheme === 'file' && ( file.path.endsWith('.js' ) || file.path.endsWith('.css') ) {
+
+                   const doc = await vscode.workspace.openTextDocument( uri );
+                
+                   minifyDocument(doc);
+                
+               }
+               
+            }
+                                        
+        }),
 
         // Minify selection.
         vscode.commands.registerCommand(`${EXT_ID}.minifySelection`, () => {
