@@ -84,6 +84,13 @@ export function activate(context: vscode.ExtensionContext): void {
                minifyDocument( doc );
                
             }
+            else {
+                   
+               vscode.window.showErrorMessage( 'File URI scheme is not "file" or file path does not end in .js or .css' );
+        
+               return; 
+        
+            }
                                         
         }),
 
