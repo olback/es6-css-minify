@@ -37,6 +37,7 @@
     "activationEvents": [
         "onCommand:es6-css-minify.loadConfig",
         "onCommand:es6-css-minify.minify",
+        "onCommand:es6-css-minify.minifyFile",
         "onCommand:es6-css-minify.minifySelection",
         "onCommand:es6-css-minify.minifyExplorer",
         "onCommand:es6-css-minify.exportConfig",
@@ -91,6 +92,10 @@
             {
                 "command": "es6-css-minify.minify",
                 "title": "Minify: Document"
+            },
+                        {
+                "command": "es6-css-minify.minifyFile",
+                "title": "Minify: File Path"
             },
             {
                 "command": "es6-css-minify.minifySelection",
