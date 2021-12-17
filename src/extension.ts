@@ -69,7 +69,7 @@ export function activate(context: vscode.ExtensionContext): void {
                 
             }
             
-            if ( uri.scheme === 'file' && ( file.path.endsWith( '.js' ) || file.path.endsWith( '.css') ) ) {
+            if ( uri.scheme === 'file' && ( uri.path.endsWith( '.js' ) || uri.path.endsWith( '.css') ) ) {
 
                const doc = await vscode.workspace.openTextDocument( uri );
                 
