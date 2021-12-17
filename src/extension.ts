@@ -57,7 +57,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
         
         // Minify file given a path ...
-        vscode.commands.registerCommand( `${EXT_ID}.minifyFile`, ( file_path: string ) => {
+        vscode.commands.registerCommand( `${EXT_ID}.minifyFile`,  async ( file_path: string ) => {
 
             const uri = vscode.Uri.parse( file_path );
             
