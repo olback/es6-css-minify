@@ -2,7 +2,7 @@
     "name": "es6-css-minify",
     "displayName": "JS & CSS Minifier (Minify)",
     "description": "Easily Minify ES5/ES6/ES7/ES8 and CSS. Supports minify on save, minify selection & custom configurations!",
-    "version": "3.3.2",
+    "version": "3.3.3",
     "publisher": "olback",
     "icon": "icon.png",
     "galleryBanner": {

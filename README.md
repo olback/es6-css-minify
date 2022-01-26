@@ -7,6 +7,8 @@
 
 If you found this extension useful and want to support further development, please consider [donating](https://www.paypal.me/olback).
 
+# [Help wanted - New maintainer(s)!](https://github.com/olback/es6-css-minify/issues/140)
+
 | OS | Status |
 |----| ------ |
 | Linux & MacOS | [![Build Status](https://travis-ci.com/olback/es6-css-minify.svg?branch=3.0)](https://travis-ci.com/olback/es6-css-minify) |
