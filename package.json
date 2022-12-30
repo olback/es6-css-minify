@@ -306,7 +306,7 @@
         "cross-env": "^5.2.1",
         "fork-ts-checker-webpack-plugin": "^1.5.0",
         "glob": "^7.1.4",
-        "mocha": "^6.1.4",
+        "mocha": "^10.2.0",
         "terser": "^4.6.2",
         "ts-loader": "^6.1.0",
         "tslint": "^5.20.0",
