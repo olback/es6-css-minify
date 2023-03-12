@@ -1,3 +1,5 @@
+# Archived - Feel free to fork and upload to VSC Marketplace.
+
 # JS & CSS Minifier
 
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/olback.es6-css-minify.svg)](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify)
